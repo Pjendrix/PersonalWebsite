@@ -666,7 +666,7 @@
 
     <!-- SOFT SKILLS BUBBLES -->
     <section>
-        <p class="section-label">About Me</p>
+        <p class="section-label">Soft Skills</p>
         <p class="bubble-hint">Click a bubble to learn more</p>
         <div class="ocean-scene" id="oceanScene">
             <canvas class="fish-canvas" id="fishCanvas"></canvas>
@@ -701,7 +701,7 @@
 
     <footer>
         <span>© 2026 Kryštof Benka</span>
-        <span>Retail Systems &amp; Process Advisor · REWE International</span>
+        <span>Retail Systems &amp; Process Advisor · CEE</span>
         <span>Vienna, Austria</span>
     </footer>
 
@@ -728,16 +728,15 @@ const thankyouBox = document.getElementById("thankyouBox");
 let bubbles  = [], animId, fishAnimId;
 
 const skills = [
-  { title:"AI",            desc:"I try to follow the latest AI trends and test new models and features daily, even though that seems like a task more difficult each day. I am actively applying AI in my work and personal life as well!" },
-    { title:"International", desc:"Having grow up in Czechia, studied in the US, Lithuania and Taiwan, working in Austria for international company and dealing with people from all over World in both professional and personal life, I feel that I am set up to be able to fit into any international setting or environment." },
-    { title:"Management",    desc:"Project Management of Innovations was my Masters degree at Czech Technical University. I also worked for more than five years as a Project Manager in Prague as my first professional work experience. I believe management skills are needed to succeed in most of the professions in any field." },
+    { title:"AI",            desc:"I follow the latest AI trends and test new models and features daily — actively applying them in my work." },
+    { title:"Communication", desc:"Studying in Czechia, the US, Lithuania and Taiwan, working in Austria and travelling internationally have given me strong cross-cultural communication skills." },
+    { title:"Management",    desc:"More than five years as a Project Manager taught me how to lead people, manage projects and align stakeholder expectations." },
     { title:"Creativity",    desc:"I hope this bubble animation speaks for itself!" },
-    { title:"Adaptability",  desc:"I don't always have all the answers or know everything. But I believe one of my biggest strenghts is being able to adapt in a lot of uncomfortable situations." },
-    { title:"Sports",    desc:"Sports is a big part of my life. I played Ice Hockey or some other sports for all of my life. Being active is something I try to do every day and I believe it helped me build up my character also for my professional life." },
-    { title:"Presentation Skills", desc:"One of my biggest strenghts is being able to present in front of an audience. Its better if I can prepare, but ad-hoc presentations of complex topics is not a problem either!" },
-    { title:"Analytical Approach", desc:"I approach a lot of tasks with a strong analytical approach. I admit, sometimes it can be a disadvantage, but I don´t mind getting into details and deep into a topic by analysing data and context." },
-    { title:"Interest in the World", desc:"I like to follow the important news, what is going on in the world for most topics. Politics, Culture, Sports, Technology, ... I think it is important to have a wide range of interests and I am always interested in learning something new" }
-
+    { title:"Adaptability",  desc:"I don't always have all the answers. The key is staying calm, adapting quickly and being willing to say 'I don't know' — then moving forward." },
+    { title:"Resilience",    desc:"When something doesn't work, don't give up. Experience across different countries and environments has built real perseverance." },
+    { title:"Analytical Thinking", desc:"I approach challenges by breaking them down into actionable insights, relying on data and logical reasoning to drive informed decisions." },
+    { title:"Problem Solving", desc:"I thrive on finding efficient solutions to complex obstacles, focusing on proactive measures rather than just reacting to issues or mindlessly following assigned tasks." },
+    { title:"Teamwork", desc:"Having played ice hockey my entire life, I have developed a deep sense of accountability and the ability to contribute effectively within high-pressure team environments." }
 ];
 
 const R = 44;
@@ -763,8 +762,8 @@ function initBubbles(){
         } while (tries<80 && bubbles.some(b=>Math.hypot(b.x-x,b.y-y)<R*2.1));
         return {
             ...s, x, y,
-            vx:(Math.random()-0.5)*0.5,
-            vy:-(0.15+Math.random()*0.2),   // gentle upward drift like real bubbles
+            vx:(Math.random()-0.5)*0.7,
+            vy:-(0.1+Math.random()*0.25),   // gentle drift, will bounce off tank walls
             baseY:y,
             radius:R,
             wobble:Math.random()*Math.PI*2,
@@ -861,22 +860,20 @@ function animate(){
 
         if (b.x-b.radius<0){ b.x=b.radius; b.vx=Math.abs(b.vx); }
         if (b.x+b.radius>canvas.width){ b.x=canvas.width-b.radius; b.vx=-Math.abs(b.vx); }
-        // gently rise then loop back to bottom when off-screen top
-        if (b.y+b.radius < 0){
-            b.y = canvas.height + b.radius;
-            b.x = Math.random()*(canvas.width-b.radius*2)+b.radius;
-        }
+        if (b.y-b.radius<0){ b.y=b.radius; b.vy=Math.abs(b.vy); }
+        if (b.y+b.radius>canvas.height){ b.y=canvas.height-b.radius; b.vy=-Math.abs(b.vy); }
         drawBubble(b);
     });
     animId = requestAnimationFrame(animate);
 }
 
-function popBubble(idx){
+function popBubble(idx, onDone){
     const b = bubbles[idx], cx=b.x, cy=b.y, r=b.radius;
     bubbles.splice(idx,1);
-    let frame=0; const MAX=18;
+    let frame=0; const MAX=22;
     function pf(){
         if (frame>MAX){
+            if (onDone) onDone();
             if (bubbles.length===0){
                 canvas.style.display="none";
                 document.querySelector(".bubble-hint").style.display="none";
@@ -885,22 +882,37 @@ function popBubble(idx){
             return;
         }
         const t = frame/MAX;
-        ctx.save();
-        ctx.globalAlpha = (1-t)*0.7;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r+t*22, 0, Math.PI*2);
-        ctx.strokeStyle = "rgba(255,255,255,0.6)";
-        ctx.lineWidth = 2*(1-t);
-        ctx.stroke();
-        for (let d=0; d<8; d++){
-            const a = (d/8)*Math.PI*2+t;
-            const dist = r*0.6+t*32;
+
+        if (t < 0.25){
+            // quick squash/flash right as it pops
+            const ft = t/0.25;
+            ctx.save();
+            ctx.globalAlpha = 0.9*(1-ft);
             ctx.beginPath();
-            ctx.arc(cx+Math.cos(a)*dist, cy+Math.sin(a)*dist - t*10, 2.2*(1-t), 0, Math.PI*2);
-            ctx.fillStyle = "rgba(220,245,250,0.7)";
+            ctx.arc(cx, cy, r*(1+ft*0.25), 0, Math.PI*2);
+            ctx.fillStyle = "rgba(255,255,255,0.5)";
             ctx.fill();
+            ctx.restore();
+        } else {
+            const bt = (t-0.25)/0.75;
+            ctx.save();
+            ctx.globalAlpha = (1-bt)*0.7;
+            ctx.beginPath();
+            ctx.arc(cx, cy, r+bt*26, 0, Math.PI*2);
+            ctx.strokeStyle = "rgba(255,255,255,0.6)";
+            ctx.lineWidth = 2*(1-bt);
+            ctx.stroke();
+            for (let d=0; d<9; d++){
+                const a = (d/9)*Math.PI*2 + bt*1.2;
+                const dist = r*0.5 + bt*38;
+                ctx.beginPath();
+                ctx.arc(cx+Math.cos(a)*dist, cy+Math.sin(a)*dist - bt*14, 2.4*(1-bt), 0, Math.PI*2);
+                ctx.fillStyle = "rgba(220,245,250,0.75)";
+                ctx.fill();
+            }
+            ctx.restore();
         }
-        ctx.restore();
+
         frame++;
         requestAnimationFrame(pf);
     }
@@ -913,10 +925,13 @@ canvas.addEventListener("click", e=>{
     const mx = (e.clientX-rect.left)*sx, my = (e.clientY-rect.top)*sy;
     for (let i=bubbles.length-1; i>=0; i--){
         if (Math.hypot(bubbles[i].x-mx, bubbles[i].y-my) < bubbles[i].radius){
-            document.getElementById("modalTitle").textContent = bubbles[i].title;
-            document.getElementById("modalDesc").textContent  = bubbles[i].desc;
-            modal.classList.add("visible");
-            popBubble(i);
+            const title = bubbles[i].title;
+            const desc  = bubbles[i].desc;
+            popBubble(i, ()=>{
+                document.getElementById("modalTitle").textContent = title;
+                document.getElementById("modalDesc").textContent  = desc;
+                modal.classList.add("visible");
+            });
             break;
         }
     }
