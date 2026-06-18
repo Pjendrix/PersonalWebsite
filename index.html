@@ -203,66 +203,219 @@
         .lang-name { color: var(--text); font-weight: 500; }
         .lang-level { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
 
-        /* ── BUBBLE ── */
-        .bubble-hint { font-size: 11px; color: var(--muted); margin-bottom: 10px; letter-spacing: 0.04em; }
-        canvas {
-            display: block; width: 100%; height: 360px;
-            background: var(--surface); border: 1px solid var(--line); cursor: pointer;
+        /* ── OCEAN BUBBLE SCENE ── */
+        .bubble-hint { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; letter-spacing: 0.04em; }
+        .ocean-scene {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, #2a6f9e 0%, #1d5683 35%, #134268 65%, #0d3354 100%);
+        }
+        .ocean-scene::before {
+            /* light rays */
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 18%, transparent 35%, rgba(255,255,255,0.06) 45%, transparent 60%);
+            pointer-events: none;
+        }
+        .ocean-floor {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 46px;
+            background: linear-gradient(180deg, #b8a888 0%, #9c8c6e 100%);
+            clip-path: polygon(0% 40%, 6% 25%, 14% 38%, 22% 20%, 32% 35%, 42% 18%, 54% 32%, 64% 15%, 76% 30%, 86% 12%, 94% 28%, 100% 18%, 100% 100%, 0% 100%);
+            opacity: 0.85;
+        }
+        .ocean-rock {
+            position: absolute;
+            bottom: 0;
+            background: #5a6470;
+            border-radius: 50% 50% 8% 8%;
+            opacity: 0.55;
+        }
+        .ocean-seaweed {
+            position: absolute;
+            bottom: 8px;
+            width: 14px;
+            transform-origin: bottom center;
+            opacity: 0.5;
+        }
+        .ocean-seaweed svg { width: 100%; height: 100%; display: block; }
+        @keyframes sway {
+            0%, 100% { transform: rotate(-6deg); }
+            50% { transform: rotate(6deg); }
+        }
+        .ocean-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .fish-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        /* ── MODAL ── */
+        /* ── MODAL (aquarium style) ── */
         .modal-overlay {
             display: none; position: fixed; inset: 0;
-            background: rgba(28,28,28,0.35); backdrop-filter: blur(4px);
+            background: rgba(8,25,40,0.55); backdrop-filter: blur(4px);
             z-index: 100; align-items: center; justify-content: center;
         }
         .modal-overlay.visible { display: flex; }
         .modal-box {
-            background: #fff; border: 1px solid var(--line);
-            padding: 48px 40px; max-width: 420px; width: 90%;
-        }
-        .modal-accent { width: 30px; height: 3px; background: var(--cz-red); margin-bottom: 18px; }
-        .modal-title { font-family: "Playfair Display", serif; font-size: 26px; font-weight: 400; margin-bottom: 12px; }
-        .modal-desc { font-size: 14px; line-height: 1.75; color: var(--muted); margin-bottom: 32px; }
-        .modal-close {
-            font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-            background: var(--cz-blue); color: #fff; border: none;
-            padding: 13px 30px; cursor: pointer; transition: background .15s;
-        }
-        .modal-close:hover { background: #1e3a6e; }
-
-        /* THANK YOU BOX */
-        .thankyou-box {
-            display: none;
-            border: 1px solid var(--line);
-            background: var(--surface);
-            padding: 56px 40px;
-            text-align: center;
             position: relative;
+            background: linear-gradient(180deg, #2a6f9e 0%, #1d5683 45%, #134268 100%);
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 48px 40px;
+            max-width: 420px; width: 90%;
             overflow: hidden;
+            box-shadow: 0 25px 70px rgba(5,20,35,0.5);
         }
-        .thankyou-box.visible { display: block; animation: fadeIn 0.6s ease; }
-        .thankyou-box::before {
+        .modal-box::before {
+            /* light rays, same as ocean scene */
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--cz-red), var(--cz-blue));
+            inset: 0;
+            background: linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 18%, transparent 35%, rgba(255,255,255,0.06) 45%, transparent 60%);
+            pointer-events: none;
+        }
+        .modal-box::after {
+            /* tiny rising bubbles decoration */
+            content: "";
+            position: absolute;
+            right: 14px; bottom: 0;
+            width: 60px; height: 100%;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.35) 0 2px, transparent 3px),
+                radial-gradient(circle, rgba(255,255,255,0.25) 0 1.5px, transparent 2.5px),
+                radial-gradient(circle, rgba(255,255,255,0.3) 0 1px, transparent 2px);
+            background-repeat: no-repeat;
+            background-position: 10px 85%, 35px 60%, 20px 30%;
+            pointer-events: none;
+        }
+        .modal-accent {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.05) 100%);
+            border: 1.5px solid rgba(255,255,255,0.6);
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .modal-title {
+            font-family: "Playfair Display", serif; font-size: 26px; font-weight: 400;
+            margin-bottom: 12px; color: #ffffff; position: relative; z-index: 1;
+        }
+        .modal-desc {
+            font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.85);
+            margin-bottom: 32px; position: relative; z-index: 1;
+        }
+        .modal-close {
+            font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.5);
+            color: #fff;
+            padding: 13px 30px; cursor: pointer; transition: background .15s;
+            position: relative; z-index: 1;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.28); }
+
+        /* THANK YOU BOX (aquarium style) */
+        .thankyou-box {
+            display: none;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+        .thankyou-box.visible { display: flex; }
+        .thankyou-inner {
+            position: relative;
+            background: linear-gradient(180deg, #2a6f9e 0%, #1d5683 45%, #134268 100%);
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 48px 44px;
+            text-align: center;
+            overflow: hidden;
+            max-width: 380px;
+            animation: fadeIn 0.6s ease;
+            box-shadow: 0 20px 60px rgba(5,20,35,0.45);
+        }
+        .thankyou-inner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 18%, transparent 35%, rgba(255,255,255,0.06) 45%, transparent 60%);
+            pointer-events: none;
+        }
+        .thankyou-inner::after {
+            content: "";
+            position: absolute;
+            left: 18px; bottom: 0;
+            width: 50px; height: 100%;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.35) 0 2px, transparent 3px),
+                radial-gradient(circle, rgba(255,255,255,0.22) 0 1.5px, transparent 2.5px),
+                radial-gradient(circle, rgba(255,255,255,0.3) 0 1px, transparent 2px);
+            background-repeat: no-repeat;
+            background-position: 8px 80%, 28px 50%, 14px 22%;
+            pointer-events: none;
+        }
+        .thankyou-bubble-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.05) 100%);
+            border: 1.5px solid rgba(255,255,255,0.6);
+            margin: 0 auto 18px;
+            position: relative;
+            z-index: 1;
         }
         .thankyou-title {
             font-family: "Playfair Display", serif;
             font-size: 26px;
             font-weight: 400;
             margin-bottom: 10px;
-            color: var(--text);
+            color: #ffffff;
+            position: relative; z-index: 1;
         }
         .thankyou-sub {
             font-size: 13px;
-            color: var(--muted);
+            color: rgba(255,255,255,0.85);
             line-height: 1.7;
+            position: relative; z-index: 1;
         }
-        .thankyou-sub a { color: var(--cz-blue); text-decoration: none; font-weight: 600; }
-        .thankyou-sub a:hover { text-decoration: underline; }
+        .thankyou-sub a { color: #ffffff; text-decoration: underline; font-weight: 600; }
+        .thankyou-sub a:hover { color: #e8f4fb; }
+        .thankyou-reset {
+            margin-top: 26px;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 9px 20px;
+            cursor: pointer;
+            transition: color .15s, border-color .15s, background .15s;
+            position: relative;
+            z-index: 1;
+        }
+        .thankyou-reset:hover {
+            color: rgba(255,255,255,0.9);
+            border-color: rgba(255,255,255,0.55);
+            background: rgba(255,255,255,0.08);
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -513,18 +666,42 @@
 
     <!-- SOFT SKILLS BUBBLES -->
     <section>
-        <p class="section-label">About Me...</p>
+        <p class="section-label">About Me</p>
         <p class="bubble-hint">Click a bubble to learn more</p>
-        <canvas id="bubbleCanvas"></canvas>
-        <div class="thankyou-box" id="thankyouBox">
-            <div class="thankyou-title">Thank you for your interest</div>
-            <p class="thankyou-sub">Please <a href="mailto:tofBenka@gmail.com">contact me</a> if you wish to talk more...</p>
+        <div class="ocean-scene" id="oceanScene">
+            <canvas class="fish-canvas" id="fishCanvas"></canvas>
+            <div class="ocean-rock" style="left:2%; width:70px; height:34px;"></div>
+            <div class="ocean-rock" style="left:12%; width:46px; height:24px;"></div>
+            <div class="ocean-rock" style="right:4%; width:80px; height:38px;"></div>
+            <div class="ocean-rock" style="right:18%; width:40px; height:20px;"></div>
+            <div class="ocean-seaweed" style="left:4%; height:90px; animation: sway 4.5s ease-in-out infinite;">
+                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q2,75 10,55 Q18,35 8,15 Q4,8 10,0" stroke="#3d8a4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="ocean-seaweed" style="left:9%; height:65px; animation: sway 3.8s ease-in-out infinite 0.4s;">
+                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q18,80 9,60 Q2,42 11,20 Q14,10 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="ocean-seaweed" style="right:6%; height:80px; animation: sway 5.2s ease-in-out infinite 0.2s;">
+                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q2,78 11,58 Q19,38 9,18 Q5,9 10,0" stroke="#3d8a4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="ocean-seaweed" style="right:11%; height:55px; animation: sway 4.1s ease-in-out infinite 0.6s;">
+                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q17,82 9,62 Q3,44 12,22 Q15,11 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="ocean-floor"></div>
+            <canvas class="ocean-canvas" id="bubbleCanvas"></canvas>
+            <div class="thankyou-box" id="thankyouBox">
+                <div class="thankyou-inner">
+                    <div class="thankyou-bubble-icon"></div>
+                    <div class="thankyou-title">Thank you for your interest</div>
+                    <p class="thankyou-sub">Please <a href="mailto:tofBenka@gmail.com">contact me</a> if you wish to know more...</p>
+                    <button class="thankyou-reset" id="resetBubbles">↺ Reset bubbles</button>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <span>© 2026 Kryštof Benka</span>
-        <span>Retail Systems &amp; Process Advisor · REWE</span>
+        <span>Retail Systems &amp; Process Advisor · REWE International</span>
         <span>Vienna, Austria</span>
     </footer>
 
@@ -543,12 +720,15 @@
 <script>
 const canvas = document.getElementById("bubbleCanvas");
 const ctx    = canvas.getContext("2d");
+const fishCanvas = document.getElementById("fishCanvas");
+const fctx   = fishCanvas.getContext("2d");
+const scene  = document.getElementById("oceanScene");
 const modal  = document.getElementById("modal");
 const thankyouBox = document.getElementById("thankyouBox");
-let bubbles  = [], animId;
+let bubbles  = [], animId, fishAnimId;
 
 const skills = [
-    { title:"AI",            desc:"I try to follow the latest AI trends and test new models and features daily, even though that seems like a task more difficult each day. I am actively applying AI in my work and personal life as well!" },
+  { title:"AI",            desc:"I try to follow the latest AI trends and test new models and features daily, even though that seems like a task more difficult each day. I am actively applying AI in my work and personal life as well!" },
     { title:"International", desc:"Having grow up in Czechia, studied in the US, Lithuania and Taiwan, working in Austria for international company and dealing with people from all over World in both professional and personal life, I feel that I am set up to be able to fit into any international setting or environment." },
     { title:"Management",    desc:"Project Management of Innovations was my Masters degree at Czech Technical University. I also worked for more than five years as a Project Manager in Prague as my first professional work experience. I believe management skills are needed to succeed in most of the professions in any field." },
     { title:"Creativity",    desc:"I hope this bubble animation speaks for itself!" },
@@ -557,36 +737,41 @@ const skills = [
     { title:"Presentation Skills", desc:"One of my biggest strenghts is being able to present in front of an audience. Its better if I can prepare, but ad-hoc presentations of complex topics is not a problem either!" },
     { title:"Analytical Approach", desc:"I approach a lot of tasks with a strong analytical approach. I admit, sometimes it can be a disadvantage, but I don´t mind getting into details and deep into a topic by analysing data and context." },
     { title:"Interest in the World", desc:"I like to follow the important news, what is going on in the world for most topics. Politics, Culture, Sports, Technology, ... I think it is important to have a wide range of interests and I am always interested in learning something new" }
+
 ];
 
-const R = 46;
-const PALETTES = [
-    { rim:"rgba(42,74,127,0.55)",  sheen1:"rgba(139,48,48,0.18)",  sheen2:"rgba(242,240,235,0.25)" },
-    { rim:"rgba(139,48,48,0.5)",   sheen1:"rgba(42,74,127,0.18)",  sheen2:"rgba(242,240,235,0.25)" },
-    { rim:"rgba(80,100,140,0.45)", sheen1:"rgba(170,80,60,0.18)",  sheen2:"rgba(242,240,235,0.22)" },
-    { rim:"rgba(42,74,127,0.45)",  sheen1:"rgba(139,48,48,0.22)",  sheen2:"rgba(255,255,255,0.28)" },
-    { rim:"rgba(139,48,48,0.45)",  sheen1:"rgba(42,74,127,0.22)",  sheen2:"rgba(255,255,255,0.28)" },
-    { rim:"rgba(60,90,150,0.5)",   sheen1:"rgba(160,60,60,0.18)",  sheen2:"rgba(242,240,235,0.22)" },
-];
+const R = 44;
 
-function resize(){ canvas.width=canvas.offsetWidth; canvas.height=360; }
+function resize(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    fishCanvas.width = fishCanvas.offsetWidth;
+    fishCanvas.height = fishCanvas.offsetHeight;
+}
 
 function initBubbles(){
-    resize();
-    bubbles=skills.map((s,i)=>{
-        let x,y,tries=0;
-        do{
-            x=Math.random()*(canvas.width-R*2.4)+R*1.2;
-            y=Math.random()*(canvas.height-R*2.4)+R*1.2;
-            tries++;
-        }while(tries<80&&bubbles.some(b=>Math.hypot(b.x-x,b.y-y)<R*2.15));
-        return{...s,x,y,vx:(Math.random()-0.5)*1.4,vy:(Math.random()-0.5)*1.4,
-            radius:R,palette:PALETTES[i%PALETTES.length],
-            wobble:Math.random()*Math.PI*2,wobbleSpeed:0.012+Math.random()*0.008};
-    });
     thankyouBox.classList.remove("visible");
     canvas.style.display = "block";
     document.querySelector(".bubble-hint").style.display = "block";
+    resize();
+    bubbles = skills.map((s,i) => {
+        let x,y,tries=0;
+        do {
+            x = Math.random()*(canvas.width-R*2.4)+R*1.2;
+            y = Math.random()*(canvas.height-R*2.4)+R*1.2;
+            tries++;
+        } while (tries<80 && bubbles.some(b=>Math.hypot(b.x-x,b.y-y)<R*2.1));
+        return {
+            ...s, x, y,
+            vx:(Math.random()-0.5)*0.5,
+            vy:-(0.15+Math.random()*0.2),   // gentle upward drift like real bubbles
+            baseY:y,
+            radius:R,
+            wobble:Math.random()*Math.PI*2,
+            wobbleSpeed:0.015+Math.random()*0.01,
+            popped:false
+        };
+    });
 }
 
 function fontSizeFor(title){
@@ -596,26 +781,66 @@ function fontSizeFor(title){
 }
 
 function drawBubble(b){
-    const r=b.radius+Math.sin(b.wobble)*1.8,cx=b.x,cy=b.y,p=b.palette;
+    const r = b.radius + Math.sin(b.wobble)*1.6;
+    const cx = b.x, cy = b.y;
     ctx.save();
-    let g=ctx.createRadialGradient(cx-r*.25,cy-r*.25,r*.05,cx,cy,r);
-    g.addColorStop(0,"rgba(255,255,255,0.18)");g.addColorStop(.5,"rgba(230,235,245,0.08)");g.addColorStop(1,"rgba(200,210,230,0.05)");
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
-    let g2=ctx.createRadialGradient(cx,cy,r*.72,cx,cy,r);
-    g2.addColorStop(0,"rgba(255,255,255,0)");g2.addColorStop(.55,p.sheen2);g2.addColorStop(.78,p.sheen1);g2.addColorStop(1,p.rim);
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=g2;ctx.fill();
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=p.rim;ctx.lineWidth=1.3;ctx.stroke();
-    let h1=ctx.createRadialGradient(cx-r*.38,cy-r*.38,0,cx-r*.38,cy-r*.38,r*.42);
-    h1.addColorStop(0,"rgba(255,255,255,0.72)");h1.addColorStop(.45,"rgba(255,255,255,0.22)");h1.addColorStop(1,"rgba(255,255,255,0)");
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=h1;ctx.fill();
-    let h2=ctx.createRadialGradient(cx+r*.3,cy+r*.35,0,cx+r*.3,cy+r*.35,r*.35);
-    h2.addColorStop(0,"rgba(200,215,240,0.35)");h2.addColorStop(1,"rgba(200,215,240,0)");
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=h2;ctx.fill();
-    ctx.fillStyle="#1c1c1c";ctx.font=`500 ${fontSizeFor(b.title)}px Inter,sans-serif`;
-    ctx.textAlign="center";ctx.textBaseline="middle";
-    ctx.shadowColor="rgba(255,255,255,0.8)";ctx.shadowBlur=6;
 
-    // wrap text if too long for bubble
+    // soft drop shadow under bubble (subtle depth)
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fillStyle = "rgba(255,255,255,0.06)";
+    ctx.fill();
+
+    // glassy radial body — pale cyan-white like the reference image
+    let body = ctx.createRadialGradient(cx-r*0.3, cy-r*0.35, r*0.1, cx, cy, r);
+    body.addColorStop(0,   "rgba(255,255,255,0.55)");
+    body.addColorStop(0.35,"rgba(220,245,250,0.28)");
+    body.addColorStop(0.7, "rgba(180,225,240,0.16)");
+    body.addColorStop(1,   "rgba(160,215,235,0.10)");
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fillStyle = body;
+    ctx.fill();
+
+    // rim
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.strokeStyle = "rgba(255,255,255,0.65)";
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r-1.5, 0, Math.PI*2);
+    ctx.strokeStyle = "rgba(255,255,255,0.25)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // big top-left specular highlight
+    let hl = ctx.createRadialGradient(cx-r*0.35,cy-r*0.4,0, cx-r*0.35,cy-r*0.4, r*0.5);
+    hl.addColorStop(0,   "rgba(255,255,255,0.85)");
+    hl.addColorStop(0.5, "rgba(255,255,255,0.3)");
+    hl.addColorStop(1,   "rgba(255,255,255,0)");
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fillStyle = hl;
+    ctx.fill();
+
+    // small bottom-right counter highlight
+    let hl2 = ctx.createRadialGradient(cx+r*0.35,cy+r*0.4,0, cx+r*0.35,cy+r*0.4, r*0.25);
+    hl2.addColorStop(0, "rgba(255,255,255,0.35)");
+    hl2.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fillStyle = hl2;
+    ctx.fill();
+
+    // label — white, bold-ish, like reference
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `600 ${fontSizeFor(b.title)}px Inter, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = "rgba(10,40,60,0.45)";
+    ctx.shadowBlur = 4;
+
     const words = b.title.split(" ");
     if (words.length > 1 && b.title.length > 10) {
         ctx.fillText(words[0], cx, cy-7);
@@ -630,58 +855,185 @@ function drawBubble(b){
 function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     bubbles.forEach(b=>{
-        b.wobble+=b.wobbleSpeed;b.x+=b.vx;b.y+=b.vy;
-        if(b.x-b.radius<0){b.x=b.radius;b.vx=Math.abs(b.vx);}
-        if(b.x+b.radius>canvas.width){b.x=canvas.width-b.radius;b.vx=-Math.abs(b.vx);}
-        if(b.y-b.radius<0){b.y=b.radius;b.vy=Math.abs(b.vy);}
-        if(b.y+b.radius>canvas.height){b.y=canvas.height-b.radius;b.vy=-Math.abs(b.vy);}
+        b.wobble += b.wobbleSpeed;
+        b.x += b.vx + Math.sin(b.wobble*0.5)*0.15;
+        b.y += b.vy;
+
+        if (b.x-b.radius<0){ b.x=b.radius; b.vx=Math.abs(b.vx); }
+        if (b.x+b.radius>canvas.width){ b.x=canvas.width-b.radius; b.vx=-Math.abs(b.vx); }
+        // gently rise then loop back to bottom when off-screen top
+        if (b.y+b.radius < 0){
+            b.y = canvas.height + b.radius;
+            b.x = Math.random()*(canvas.width-b.radius*2)+b.radius;
+        }
         drawBubble(b);
     });
-    animId=requestAnimationFrame(animate);
+    animId = requestAnimationFrame(animate);
 }
 
 function popBubble(idx){
-    const b=bubbles[idx],cx=b.x,cy=b.y,r=b.radius;
+    const b = bubbles[idx], cx=b.x, cy=b.y, r=b.radius;
     bubbles.splice(idx,1);
-    let frame=0;const MAX=18;
+    let frame=0; const MAX=18;
     function pf(){
-        if(frame>MAX){
-            if(bubbles.length===0){
+        if (frame>MAX){
+            if (bubbles.length===0){
                 canvas.style.display="none";
                 document.querySelector(".bubble-hint").style.display="none";
                 thankyouBox.classList.add("visible");
             }
             return;
         }
-        const t=frame/MAX;
-        ctx.save();ctx.globalAlpha=(1-t)*.6;
-        ctx.beginPath();ctx.arc(cx,cy,r+t*22,0,Math.PI*2);
-        ctx.strokeStyle=b.palette.rim;ctx.lineWidth=2*(1-t);ctx.stroke();
-        for(let d=0;d<7;d++){
-            const a=(d/7)*Math.PI*2+t,dist=r*.6+t*30;
-            ctx.beginPath();ctx.arc(cx+Math.cos(a)*dist,cy+Math.sin(a)*dist,2.5*(1-t),0,Math.PI*2);
-            ctx.fillStyle=b.palette.sheen1;ctx.fill();
+        const t = frame/MAX;
+        ctx.save();
+        ctx.globalAlpha = (1-t)*0.7;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r+t*22, 0, Math.PI*2);
+        ctx.strokeStyle = "rgba(255,255,255,0.6)";
+        ctx.lineWidth = 2*(1-t);
+        ctx.stroke();
+        for (let d=0; d<8; d++){
+            const a = (d/8)*Math.PI*2+t;
+            const dist = r*0.6+t*32;
+            ctx.beginPath();
+            ctx.arc(cx+Math.cos(a)*dist, cy+Math.sin(a)*dist - t*10, 2.2*(1-t), 0, Math.PI*2);
+            ctx.fillStyle = "rgba(220,245,250,0.7)";
+            ctx.fill();
         }
-        ctx.restore();frame++;requestAnimationFrame(pf);
-    }pf();
+        ctx.restore();
+        frame++;
+        requestAnimationFrame(pf);
+    }
+    pf();
 }
 
-canvas.addEventListener("click",e=>{
-    const rect=canvas.getBoundingClientRect();
-    const sx=canvas.width/rect.width,sy=canvas.height/rect.height;
-    const mx=(e.clientX-rect.left)*sx,my=(e.clientY-rect.top)*sy;
-    for(let i=bubbles.length-1;i>=0;i--){
-        if(Math.hypot(bubbles[i].x-mx,bubbles[i].y-my)<bubbles[i].radius){
-            document.getElementById("modalTitle").textContent=bubbles[i].title;
-            document.getElementById("modalDesc").textContent=bubbles[i].desc;
-            modal.classList.add("visible");popBubble(i);break;
+canvas.addEventListener("click", e=>{
+    const rect = canvas.getBoundingClientRect();
+    const sx = canvas.width/rect.width, sy = canvas.height/rect.height;
+    const mx = (e.clientX-rect.left)*sx, my = (e.clientY-rect.top)*sy;
+    for (let i=bubbles.length-1; i>=0; i--){
+        if (Math.hypot(bubbles[i].x-mx, bubbles[i].y-my) < bubbles[i].radius){
+            document.getElementById("modalTitle").textContent = bubbles[i].title;
+            document.getElementById("modalDesc").textContent  = bubbles[i].desc;
+            modal.classList.add("visible");
+            popBubble(i);
+            break;
         }
     }
 });
-document.getElementById("modalClose").addEventListener("click",()=>modal.classList.remove("visible"));
-modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("visible");});
-window.addEventListener("resize",()=>{cancelAnimationFrame(animId);initBubbles();animate();});
-initBubbles();animate();
+document.getElementById("modalClose").addEventListener("click", ()=>modal.classList.remove("visible"));
+modal.addEventListener("click", e=>{ if (e.target===modal) modal.classList.remove("visible"); });
+
+/* ───────── BACKGROUND FISH (decorative, non-interactive) ───────── */
+const FISH_COLORS = [
+    ["#f4a23c","#d97f1f"], ["#5fb8e0","#2f8fc0"], ["#e8556b","#c43a52"],
+    ["#f7d04a","#dba91f"], ["#8a6fd8","#6a4fc0"], ["#4fd0c0","#2caa9a"],
+    ["#f4895f","#d96638"]
+];
+
+function drawFish(x, y, size, dir, colorPair, finPhase){
+    fctx.save();
+    fctx.translate(x, y);
+    fctx.scale(dir, 1);
+    fctx.globalAlpha = 0.32;
+
+    // body
+    let grad = fctx.createLinearGradient(-size, 0, size, 0);
+    grad.addColorStop(0, colorPair[1]);
+    grad.addColorStop(1, colorPair[0]);
+    fctx.beginPath();
+    fctx.ellipse(0, 0, size, size*0.55, 0, 0, Math.PI*2);
+    fctx.fillStyle = grad;
+    fctx.fill();
+
+    // tail (animated)
+    const tailWag = Math.sin(finPhase)*0.3;
+    fctx.beginPath();
+    fctx.moveTo(-size*0.9, 0);
+    fctx.lineTo(-size*1.5, -size*0.45 + tailWag*size*0.3);
+    fctx.lineTo(-size*1.5, size*0.45 + tailWag*size*0.3);
+    fctx.closePath();
+    fctx.fillStyle = colorPair[1];
+    fctx.fill();
+
+    // dorsal fin
+    fctx.beginPath();
+    fctx.moveTo(-size*0.1, -size*0.5);
+    fctx.lineTo(size*0.15, -size*0.85);
+    fctx.lineTo(size*0.35, -size*0.45);
+    fctx.closePath();
+    fctx.fillStyle = colorPair[1];
+    fctx.fill();
+
+    // eye
+    fctx.beginPath();
+    fctx.arc(size*0.55, -size*0.08, size*0.09, 0, Math.PI*2);
+    fctx.fillStyle = "#ffffff";
+    fctx.fill();
+    fctx.beginPath();
+    fctx.arc(size*0.58, -size*0.08, size*0.045, 0, Math.PI*2);
+    fctx.fillStyle = "#13202a";
+    fctx.fill();
+
+    fctx.restore();
+}
+
+let fishes = [];
+function initFish(){
+    fishes = [];
+    const count = 6;
+    for (let i=0; i<count; i++){
+        fishes.push({
+            x: Math.random()*fishCanvas.width,
+            y: Math.random()*fishCanvas.height*0.85 + fishCanvas.height*0.05,
+            size: 9 + Math.random()*8,
+            speed: 0.25 + Math.random()*0.35,
+            dir: Math.random() > 0.5 ? 1 : -1,
+            colorPair: FISH_COLORS[i % FISH_COLORS.length],
+            finPhase: Math.random()*Math.PI*2,
+            bobPhase: Math.random()*Math.PI*2
+        });
+    }
+}
+
+function animateFish(){
+    fctx.clearRect(0,0,fishCanvas.width,fishCanvas.height);
+    fishes.forEach(f=>{
+        f.x += f.speed * f.dir;
+        f.finPhase += 0.12;
+        f.bobPhase += 0.04;
+        const by = f.y + Math.sin(f.bobPhase)*4;
+
+        if (f.dir>0 && f.x > fishCanvas.width + f.size*1.6){
+            f.x = -f.size*1.6;
+            f.y = Math.random()*fishCanvas.height*0.85 + fishCanvas.height*0.05;
+        }
+        if (f.dir<0 && f.x < -f.size*1.6){
+            f.x = fishCanvas.width + f.size*1.6;
+            f.y = Math.random()*fishCanvas.height*0.85 + fishCanvas.height*0.05;
+        }
+        drawFish(f.x, by, f.size, f.dir, f.colorPair, f.finPhase);
+    });
+    fishAnimId = requestAnimationFrame(animateFish);
+}
+
+window.addEventListener("resize", ()=>{
+    cancelAnimationFrame(animId);
+    cancelAnimationFrame(fishAnimId);
+    initBubbles();
+    initFish();
+    animate();
+    animateFish();
+});
+
+document.getElementById("resetBubbles").addEventListener("click", ()=>{
+    initBubbles();
+});
+
+initBubbles();
+initFish();
+animate();
+animateFish();
 </script>
 </body>
 </html>
