@@ -1,801 +1,725 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kryštof Benka | Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="asset_1.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="asset_2.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="asset_3.png">
-    <link rel="apple-touch-icon" href="asset_4.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kryštof Benka | Portfolio</title>
+<link rel="icon" type="image/x-icon" href="asset_1.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="asset_2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="asset_3.png">
+<link rel="apple-touch-icon" href="asset_4.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
-        :root {
-            --cz-red:  #8b3030;
-            --cz-blue: #2a4a7f;
-            --bg:      #ffffff;
-            --surface: #fafafa;
-            --text:    #1c1c1c;
-            --muted:   #6a6560;
-            --line:    #e0ddd8;
-        }
-
-        body {
-            font-family: "Inter", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;<
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* ── CZECH ICON WATERMARK ── */
-        .bg-watermark {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .bg-watermark img {
-            position: absolute;
-            opacity: 0.16;
-            filter: grayscale(1);
-        }
-
-        /* ── FLAG STRIPE ── */
-        .flag-stripe {
-            display: flex;
-            height: 5px;
-            position: relative;
-            z-index: 2;
-        }
-        .flag-stripe span:nth-child(1) { flex:1; background:#d6d2ca; }
-        .flag-stripe span:nth-child(2) { flex:1; background:var(--cz-red); }
-        .flag-stripe span:nth-child(3) { flex:1; background:var(--cz-blue); }
-
-        .container {
-            max-width: 920px;
-            margin: 0 auto;
-            padding: 64px 36px 80px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ── HEADER ── */
-        header {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 48px;
-            align-items: start;
-            margin-bottom: 80px;
-        }
-        .eyebrow {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--cz-blue);
-            margin-bottom: 18px;
-        }
-        h1 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(42px, 7vw, 74px);
-            font-weight: 400;
-            line-height: 1.02;
-            letter-spacing: -0.025em;
-            margin-bottom: 22px;
-        }
-        h1 em { font-style: italic; color: var(--cz-red); }
-        .header-sub {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            padding-top: 18px;
-            border-top: 1px solid var(--line);
-            margin-bottom: 14px;
-        }
-        .header-contacts { display: flex; flex-direction: column; gap: 5px; }
-        .header-contacts a { font-size: 12px; color: var(--cz-blue); text-decoration: none; }
-        .header-contacts a:hover { text-decoration: underline; }
-        .header-contacts span { font-size: 12px; color: var(--muted); }
-
-        /* AVATAR */
-        .avatar-wrap { width: 170px; flex-shrink: 0; }
-        .avatar-wrap img { width: 170px; height: 170px; object-fit: cover; border: 1px solid var(--line); display: block; }
-        .avatar-badge {
-            font-size: 9px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        /* ── SECTION ── */
-        section { margin-bottom: 68px; }
-        .section-label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-label::after { content:""; flex:1; height:1px; background:var(--line); }
-
-        /* SUMMARY */
-        .summary-text { font-size: 14px; line-height: 1.85; color: var(--muted); max-width: 680px; }
-
-        /* ── TIMELINE ── */
-        .timeline { display: flex; flex-direction: column; }
-        .tl-item {
-            display: grid;
-            grid-template-columns: 155px 1fr;
-            gap: 0 32px;
-            padding: 28px 0;
-            border-top: 1px solid var(--line);
-        }
-        .tl-item:last-child { border-bottom: 1px solid var(--line); }
-        .tl-left { display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 2px; }
-        .tl-logo { height: 40px; width: 110px; object-fit: contain; }
-        .tl-period { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; line-height: 1.5; text-align: center; }
-        .tl-role { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-        .tl-company { font-size: 11px; color: var(--cz-blue); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
-        .tl-desc { font-size: 13px; line-height: 1.7; color: var(--muted); }
-        .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-        .tl-tag {
-            font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
-            background: #f0ede8; color: var(--muted); padding: 3px 9px; border: 1px solid var(--line);
-        }
-
-        /* ── CERTIFICATIONS ── */
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
-        .cert-card {
-            background: var(--surface); border: 1px solid var(--line); padding: 22px;
-            text-decoration: none; color: var(--text);
-            display: flex; align-items: center; gap: 16px;
-            transition: border-color .2s, background .2s;
-            position: relative; overflow: hidden;
-        }
-        .cert-card::before {
-            content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
-            background: var(--cz-blue); transform: scaleY(0); transition: transform .2s; transform-origin: bottom;
-        }
-        .cert-card:hover { border-color: var(--cz-blue); background: #f0f3f9; }
-        .cert-card:hover::before { transform: scaleY(1); }
-        .cert-logo { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
-        .cert-info { flex: 1; }
-        .cert-name { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
-        .cert-provider { font-size: 11px; color: var(--muted); }
-        .cert-arrow { font-size: 16px; color: var(--cz-blue); opacity: .4; transition: opacity .2s; }
-        .cert-card:hover .cert-arrow { opacity: 1; }
-
-        /* ── EDUCATION ── */
-        .edu-grid { display: flex; flex-direction: column; }
-        .edu-item {
-            display: grid; grid-template-columns: 155px 1fr;
-            gap: 0 32px; padding: 20px 0; border-top: 1px solid var(--line); align-items: center;
-        }
-        .edu-item:last-child { border-bottom: 1px solid var(--line); }
-        .edu-left { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .edu-logo { height: 28px; width: auto; max-width: 120px; object-fit: contain; }
-        .edu-period { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase;  text-align: center; }
-        .edu-school { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-        .edu-degree { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-        /* ── SKILLS ── */
-        .skills-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-        .skill-pill {
-            font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
-            background: #f0ede8; border: 1px solid var(--line); color: var(--text); padding: 6px 14px;
-        }
-        .lang-list { display: flex; flex-direction: column; gap: 0; }
-        .lang-item {
-            display: flex; align-items: center; justify-content: space-between;
-            font-size: 13px; padding: 9px 0; border-bottom: 1px solid var(--line);
-        }
-        .lang-item:last-child { border-bottom: none; }
-        .lang-name { color: var(--text); font-weight: 500; }
-        .lang-level { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
-
-        /* ── OCEAN BUBBLE SCENE ── */
-        .bubble-hint { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; letter-spacing: 0.04em; }
-        .ocean-scene {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            border: 1px solid var(--line);
-            background: linear-gradient(180deg, #2a6f9e 0%, #1d5683 35%, #134268 65%, #0d3354 100%);
-        }
-        .ocean-scene::before {
-            /* light rays */
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 18%, transparent 35%, rgba(255,255,255,0.06) 45%, transparent 60%);
-            pointer-events: none;
-        }
-        .ocean-floor {
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            height: 46px;
-            background: linear-gradient(180deg, #b8a888 0%, #9c8c6e 100%);
-            clip-path: polygon(0% 40%, 6% 25%, 14% 38%, 22% 20%, 32% 35%, 42% 18%, 54% 32%, 64% 15%, 76% 30%, 86% 12%, 94% 28%, 100% 18%, 100% 100%, 0% 100%);
-            opacity: 0.85;
-        }
-        .ocean-rock {
-            position: absolute;
-            bottom: 0;
-            background: #5a6470;
-            border-radius: 50% 50% 8% 8%;
-            opacity: 0.55;
-        }
-        .ocean-seaweed {
-            position: absolute;
-            bottom: 8px;
-            width: 14px;
-            transform-origin: bottom center;
-            opacity: 0.5;
-        }
-        .ocean-seaweed svg { width: 100%; height: 100%; display: block; }
-        @keyframes sway {
-            0%, 100% { transform: rotate(-6deg); }
-            50% { transform: rotate(6deg); }
-        }
-        .ocean-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            z-index: 2;
-        }
-        .fish-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* ── MODAL (aquarium style) ── */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(8,25,40,0.55); backdrop-filter: blur(4px);
-            z-index: 100; align-items: center; justify-content: center;
-        }
-        .modal-overlay.visible { display: flex; }
-        .modal-box {
-            position: relative;
-            background: linear-gradient(180deg, #2a6f9e 0%, #1d5683 45%, #134268 100%);
-            border: 1px solid rgba(255,255,255,0.25);
-            padding: 48px 40px;
-            max-width: 420px; width: 90%;
-            overflow: hidden;
-            box-shadow: 0 25px 70px rgba(5,20,35,0.5);
-        }
-        .modal-box::before {
-            /* light rays, same as ocean scene */
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 18%, transparent 35%, rgba(255,255,255,0.06) 45%, transparent 60%);
-            pointer-events: none;
-        }
-        .modal-box::after {
-            /* tiny rising bubbles decoration */
-            content: "";
-            position: absolute;
-            right: 14px; bottom: 0;
-            width: 60px; height: 100%;
-            background-image:
-                radial-gradient(circle, rgba(255,255,255,0.35) 0 2px, transparent 3px),
-                radial-gradient(circle, rgba(255,255,255,0.25) 0 1.5px, transparent 2.5px),
-                radial-gradient(circle, rgba(255,255,255,0.3) 0 1px, transparent 2px);
-            background-repeat: no-repeat;
-            background-position: 10px 85%, 35px 60%, 20px 30%;
-            pointer-events: none;
-        }
-        .modal-accent {
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.05) 100%);
-            border: 1.5px solid rgba(255,255,255,0.6);
-            margin-bottom: 18px;
-            position: relative;
-            z-index: 1;
-        }
-        .modal-title {
-            font-family: "Playfair Display", serif; font-size: 26px; font-weight: 400;
-            margin-bottom: 12px; color: #ffffff; position: relative; z-index: 1;
-        }
-        .modal-desc {
-            font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.85);
-            margin-bottom: 32px; position: relative; z-index: 1;
-        }
-        .modal-close {
-            font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.5);
-            color: #fff;
-            padding: 13px 30px; cursor: pointer; transition: background .15s;
-            position: relative; z-index: 1;
-        }
-        .modal-close:hover { background: rgba(255,255,255,0.28); }
-
-        /* THANK YOU BOX (aquarium style) */
-        .thankyou-box {
-            display: none;
-            position: absolute;
-            inset: 0;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-        }
-        .thankyou-box.visible { display: flex; }
-        .thankyou-inner {
-            position: relative;
-            background: linear-gradient(180deg, #2a6f9e 0%, #1d5683 45%, #134268 100%);
-            border: 1px solid rgba(255,255,255,0.25);
-            padding: 48px 44px;
-            text-align: center;
-            overflow: hidden;
-            max-width: 380px;
-            animation: fadeIn 0.6s ease;
-            box-shadow: 0 20px 60px rgba(5,20,35,0.45);
-        }
-        .thankyou-inner::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 18%, transparent 35%, rgba(255,255,255,0.06) 45%, transparent 60%);
-            pointer-events: none;
-        }
-        .thankyou-inner::after {
-            content: "";
-            position: absolute;
-            left: 18px; bottom: 0;
-            width: 50px; height: 100%;
-            background-image:
-                radial-gradient(circle, rgba(255,255,255,0.35) 0 2px, transparent 3px),
-                radial-gradient(circle, rgba(255,255,255,0.22) 0 1.5px, transparent 2.5px),
-                radial-gradient(circle, rgba(255,255,255,0.3) 0 1px, transparent 2px);
-            background-repeat: no-repeat;
-            background-position: 8px 80%, 28px 50%, 14px 22%;
-            pointer-events: none;
-        }
-        .thankyou-bubble-icon {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.05) 100%);
-            border: 1.5px solid rgba(255,255,255,0.6);
-            margin: 0 auto 18px;
-            position: relative;
-            z-index: 1;
-        }
-        .thankyou-title {
-            font-family: "Playfair Display", serif;
-            font-size: 26px;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: #ffffff;
-            position: relative; z-index: 1;
-        }
-        .thankyou-sub {
-            font-size: 13px;
-            color: rgba(255,255,255,0.85);
-            line-height: 1.7;
-            position: relative; z-index: 1;
-        }
-        .thankyou-sub a { color: #ffffff; text-decoration: underline; font-weight: 600; }
-        .thankyou-sub a:hover { color: #e8f4fb; }
-        .thankyou-reset {
-            margin-top: 26px;
-            font-size: 9px;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.55);
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 9px 20px;
-            cursor: pointer;
-            transition: color .15s, border-color .15s, background .15s;
-            position: relative;
-            z-index: 1;
-        }
-        .thankyou-reset:hover {
-            color: rgba(255,255,255,0.9);
-            border-color: rgba(255,255,255,0.55);
-            background: rgba(255,255,255,0.08);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            border-top: 1px solid var(--line); padding-top: 26px;
-            font-size: 11px; color: var(--muted); letter-spacing: 0.06em;
-            display: flex; gap: 24px; flex-wrap: wrap;
-            justify-content: center; text-align: center;
-        }
-
-        @media (max-width: 640px) {
-            .container { padding: 36px 18px 60px; }
-            header { grid-template-columns: 1fr; }
-            .avatar-wrap { width: 110px; } .avatar-wrap img { width: 110px; height: 110px; }
-            .tl-item, .edu-item { grid-template-columns: 1fr; gap: 8px; }
-            .tl-left { flex-direction: row; align-items: center; flex-wrap: wrap; }
-            .edu-left { flex-direction: row; align-items: center; }
-            .cert-grid { grid-template-columns: 1fr; }
-            .skills-row { grid-template-columns: 1fr; gap: 28px; }
-        }
-/* Plynulé rolování pro celou stránku */
-html { scroll-behavior: smooth; }
-
-/* Sticky navigace */
-nav {
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px 36px;
-    border-bottom: 1px solid var(--line);
-    z-index: 1000;
-    display: flex;
-    gap: 24px;
-    justify-content: center;
+:root {
+  --cz-red:#8b3030;
+  --cz-blue:#2a4a7f;
+  --bg:#ffffff;
+  --surface:#fafafa;
+  --text:#1c1c1c;
+  --muted:#6a6560;
+  --line:#e0ddd8;
 }
-nav a { 
-    text-decoration: none; 
-    color: var(--text); 
-    font-size: 11px; 
-    font-weight: 600; 
-    text-transform: uppercase; 
-    letter-spacing: 0.15em; 
+[data-theme="dark"] {
+  --bg:#0f1923;
+  --surface:#162030;
+  --text:#e8e4dc;
+  --muted:#9a9590;
+  --line:#2a3a4a;
+  --cz-red:#c45050;
+  --cz-blue:#5a85c0;
 }
-nav a:hover { color: var(--cz-red); }
-/* Nastavíme odsazení pro všechny sekce, které mají ID */
-section, header {
-    scroll-margin-top: 80px; /* Uprav hodnotu podle skutečné výšky tvého menu */
-}
-.menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; padding: 10px; }
 
-@media (max-width: 768px) {
-    .menu-toggle { display: block; } /* Zobrazí se jen na mobilu */
-    
-    #navMenu {
-        display: none; /* Výchozí stav na mobilu: skryté */
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        background: #fff;
-        padding: 20px 0;
-        border-bottom: 1px solid var(--line);
-    }
-    
-    #navMenu.active { display: flex; } /* Třída, kterou přidáme JSem */
+html{scroll-behavior:smooth;}
+body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;position:relative;overflow-x:hidden;transition:background .3s,color .3s;}
+
+.bg-watermark{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.bg-watermark img{position:absolute;opacity:0.10;filter:grayscale(1);}
+[data-theme="dark"] .bg-watermark img{opacity:0.05;}
+
+.flag-stripe{display:flex;height:5px;position:relative;z-index:2;}
+.flag-stripe span:nth-child(1){flex:1;background:#d6d2ca;}
+.flag-stripe span:nth-child(2){flex:1;background:var(--cz-red);}
+.flag-stripe span:nth-child(3){flex:1;background:var(--cz-blue);}
+
+.container{max-width:920px;margin:0 auto;padding:64px 36px 80px;position:relative;z-index:1;}
+
+/* NAV */
+nav{position:sticky;top:0;background:rgba(255,255,255,0.95);padding:14px 36px;border-bottom:1px solid var(--line);z-index:1000;display:flex;gap:20px;justify-content:center;align-items:center;transition:background .3s,border-color .3s;}
+[data-theme="dark"] nav{background:rgba(15,25,35,0.97);}
+nav a{text-decoration:none;color:var(--text);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;transition:color .2s;}
+nav a:hover{color:var(--cz-red);}
+.nav-controls{display:flex;gap:8px;margin-left:auto;align-items:center;}
+.nav-btn{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--muted);padding:5px 10px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.nav-btn:hover{border-color:var(--cz-blue);color:var(--cz-blue);}
+.nav-btn.active{border-color:var(--cz-blue);color:var(--cz-blue);background:rgba(42,74,127,0.08);}
+.menu-toggle{display:none;background:none;border:none;font-size:24px;cursor:pointer;padding:10px;color:var(--text);}
+
+/* SCROLL PROGRESS */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--cz-red);z-index:2000;transition:width .1s;}
+
+section,header{scroll-margin-top:80px;}
+
+/* HEADER */
+header{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:start;margin-bottom:80px;}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--cz-blue);margin-bottom:18px;}
+h1{font-family:"Playfair Display",serif;font-size:clamp(42px,7vw,74px);font-weight:400;line-height:1.02;letter-spacing:-0.025em;margin-bottom:22px;}
+h1 em{font-style:italic;color:var(--cz-red);}
+.header-sub{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding-top:18px;border-top:1px solid var(--line);margin-bottom:14px;}
+.header-contacts{display:flex;flex-direction:column;gap:5px;}
+.header-contacts a{font-size:12px;color:var(--cz-blue);text-decoration:none;}
+.header-contacts a:hover{text-decoration:underline;}
+.header-contacts span{font-size:12px;color:var(--muted);}
+.cv-download{display:inline-block;margin-top:16px;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--cz-blue);border:1px solid var(--cz-blue);padding:8px 18px;text-decoration:none;transition:background .2s,color .2s;}
+.cv-download:hover{background:var(--cz-blue);color:#fff;}
+
+.avatar-wrap{width:170px;flex-shrink:0;}
+.avatar-wrap img{width:170px;height:170px;object-fit:cover;border:1px solid var(--line);display:block;}
+.avatar-badge{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px;}
+
+/* SECTIONS */
+section{margin-bottom:68px;}
+.section-label{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+.summary-text{font-size:14px;line-height:1.85;color:var(--muted);max-width:680px;}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;}
+.tl-item{display:grid;grid-template-columns:155px 1fr;gap:0 32px;padding:28px 0;border-top:1px solid var(--line);}
+.tl-item:last-child{border-bottom:1px solid var(--line);}
+.tl-left{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:2px;}
+.tl-logo{height:40px;width:110px;object-fit:contain;}
+.tl-period{font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;line-height:1.5;text-align:center;}
+.tl-role{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.tl-company{font-size:11px;color:var(--cz-blue);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;}
+.tl-desc{font-size:13px;line-height:1.7;color:var(--muted);}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.tl-tag{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;background:var(--surface);color:var(--muted);padding:3px 9px;border:1px solid var(--line);}
+
+/* CERTIFICATIONS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.cert-card{background:var(--surface);border:1px solid var(--line);padding:22px;text-decoration:none;color:var(--text);display:flex;align-items:center;gap:16px;transition:border-color .2s,background .2s;position:relative;overflow:hidden;}
+.cert-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cz-blue);transform:scaleY(0);transition:transform .2s;transform-origin:bottom;}
+.cert-card:hover{border-color:var(--cz-blue);background:#f0f3f9;}
+[data-theme="dark"] .cert-card:hover{background:#1a2a3a;}
+.cert-card:hover::before{transform:scaleY(1);}
+.cert-logo{width:34px;height:34px;object-fit:contain;flex-shrink:0;}
+.cert-info{flex:1;}
+.cert-name{font-size:13px;font-weight:600;margin-bottom:3px;}
+.cert-provider{font-size:11px;color:var(--muted);}
+.cert-arrow{font-size:16px;color:var(--cz-blue);opacity:.4;transition:opacity .2s;}
+.cert-card:hover .cert-arrow{opacity:1;}
+
+/* EDUCATION */
+.edu-grid{display:flex;flex-direction:column;}
+.edu-item{display:grid;grid-template-columns:155px 1fr;gap:0 32px;padding:20px 0;border-top:1px solid var(--line);align-items:center;}
+.edu-item:last-child{border-bottom:1px solid var(--line);}
+.edu-left{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.edu-logo{height:28px;width:auto;max-width:120px;object-fit:contain;}
+.edu-period{font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;text-align:center;}
+.edu-school{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.edu-degree{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* JOURNEY MAP */
+.journey-map-wrap{margin-top:32px;border:1px solid var(--line);overflow:hidden;}
+.journey-map-wrap svg{display:block;width:100%;height:auto;}
+.map-dot{cursor:pointer;transition:r .2s;}
+.map-dot:hover circle{r:7;}
+.map-tooltip{font-size:11px;font-weight:600;fill:var(--text);}
+.map-label{font-size:10px;fill:var(--muted);}
+
+/* SKILLS */
+.skills-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.skill-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.skill-pill{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;background:var(--surface);border:1px solid var(--line);color:var(--text);padding:6px 14px;}
+.lang-list{display:flex;flex-direction:column;gap:0;}
+.lang-item{display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:9px 0;border-bottom:1px solid var(--line);}
+.lang-item:last-child{border-bottom:none;}
+.lang-name{color:var(--text);font-weight:500;}
+.lang-level{font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+
+/* OCEAN */
+.bubble-hint{font-size:11px;color:rgba(255,255,255,0.75);margin-bottom:10px;letter-spacing:0.04em;}
+.ocean-scene{position:relative;width:100%;height:380px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#2a6f9e 0%,#1d5683 35%,#134268 65%,#0d3354 100%);}
+.ocean-scene::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,0.10) 0%,transparent 18%,transparent 35%,rgba(255,255,255,0.06) 45%,transparent 60%);pointer-events:none;}
+.ocean-floor{position:absolute;left:0;right:0;bottom:0;height:46px;background:linear-gradient(180deg,#b8a888 0%,#9c8c6e 100%);clip-path:polygon(0% 40%,6% 25%,14% 38%,22% 20%,32% 35%,42% 18%,54% 32%,64% 15%,76% 30%,86% 12%,94% 28%,100% 18%,100% 100%,0% 100%);opacity:0.85;}
+.ocean-rock{position:absolute;bottom:0;background:#5a6470;border-radius:50% 50% 8% 8%;opacity:0.55;}
+.ocean-seaweed{position:absolute;bottom:8px;width:14px;transform-origin:bottom center;opacity:0.5;}
+.ocean-seaweed svg{width:100%;height:100%;display:block;}
+@keyframes sway{0%,100%{transform:rotate(-6deg);}50%{transform:rotate(6deg);}}
+.ocean-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:pointer;z-index:2;}
+.fish-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(8,25,40,0.55);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.visible{display:flex;}
+.modal-box{position:relative;background:linear-gradient(180deg,#2a6f9e 0%,#1d5683 45%,#134268 100%);border:1px solid rgba(255,255,255,0.25);padding:48px 40px;max-width:420px;width:90%;overflow:hidden;box-shadow:0 25px 70px rgba(5,20,35,0.5);}
+.modal-box::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,0.10) 0%,transparent 18%,transparent 35%,rgba(255,255,255,0.06) 45%,transparent 60%);pointer-events:none;}
+.modal-box::after{content:"";position:absolute;right:14px;bottom:0;width:60px;height:100%;background-image:radial-gradient(circle,rgba(255,255,255,0.35) 0 2px,transparent 3px),radial-gradient(circle,rgba(255,255,255,0.25) 0 1.5px,transparent 2.5px),radial-gradient(circle,rgba(255,255,255,0.3) 0 1px,transparent 2px);background-repeat:no-repeat;background-position:10px 85%,35px 60%,20px 30%;pointer-events:none;}
+.modal-accent{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.8),rgba(255,255,255,0.15) 60%,rgba(255,255,255,0.05) 100%);border:1.5px solid rgba(255,255,255,0.6);margin-bottom:18px;position:relative;z-index:1;}
+.modal-title{font-family:"Playfair Display",serif;font-size:26px;font-weight:400;margin-bottom:12px;color:#ffffff;position:relative;z-index:1;}
+.modal-desc{font-size:14px;line-height:1.75;color:rgba(255,255,255,0.85);margin-bottom:32px;position:relative;z-index:1;}
+.modal-close{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.5);color:#fff;padding:13px 30px;cursor:pointer;transition:background .15s;position:relative;z-index:1;}
+.modal-close:hover{background:rgba(255,255,255,0.28);}
+
+/* THANK YOU */
+.thankyou-box{display:none;position:absolute;inset:0;align-items:center;justify-content:center;z-index:3;}
+.thankyou-box.visible{display:flex;}
+.thankyou-inner{position:relative;background:linear-gradient(180deg,#2a6f9e 0%,#1d5683 45%,#134268 100%);border:1px solid rgba(255,255,255,0.25);padding:48px 44px;text-align:center;overflow:hidden;max-width:380px;animation:fadeIn 0.6s ease;box-shadow:0 20px 60px rgba(5,20,35,0.45);}
+.thankyou-inner::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,0.10) 0%,transparent 18%,transparent 35%,rgba(255,255,255,0.06) 45%,transparent 60%);pointer-events:none;}
+.thankyou-bubble-icon{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.85),rgba(255,255,255,0.15) 60%,rgba(255,255,255,0.05) 100%);border:1.5px solid rgba(255,255,255,0.6);margin:0 auto 18px;position:relative;z-index:1;}
+.thankyou-title{font-family:"Playfair Display",serif;font-size:26px;font-weight:400;margin-bottom:10px;color:#ffffff;position:relative;z-index:1;}
+.thankyou-sub{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7;position:relative;z-index:1;}
+.thankyou-sub a{color:#ffffff;text-decoration:underline;font-weight:600;}
+.thankyou-reset{margin-top:26px;font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);background:transparent;border:1px solid rgba(255,255,255,0.3);padding:9px 20px;cursor:pointer;transition:color .15s,border-color .15s,background .15s;position:relative;z-index:1;}
+.thankyou-reset:hover{color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.08);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* CONTACT FORM */
+.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.contact-form input,.contact-form textarea{background:var(--surface);border:1px solid var(--line);color:var(--text);font-family:"Inter",sans-serif;font-size:13px;padding:12px 14px;outline:none;transition:border-color .2s;width:100%;}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--cz-blue);}
+.contact-form .full{grid-column:1/-1;}
+.contact-form textarea{resize:vertical;min-height:110px;}
+.contact-submit{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;background:var(--cz-blue);color:#fff;border:none;padding:13px 28px;cursor:pointer;transition:background .2s;}
+.contact-submit:hover{background:#1e3a6a;}
+.contact-status{font-size:12px;color:var(--muted);margin-top:8px;min-height:18px;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding-top:26px;font-size:11px;color:var(--muted);letter-spacing:0.06em;display:flex;gap:24px;flex-wrap:wrap;justify-content:center;text-align:center;}
+
+@media(max-width:768px){
+  .menu-toggle{display:block;}
+  #navMenu{display:none;flex-direction:column;width:100%;text-align:center;background:var(--bg);padding:20px 0;border-bottom:1px solid var(--line);}
+  #navMenu.active{display:flex;}
+  .nav-controls{margin-left:0;justify-content:center;}
 }
-    </style>
+@media(max-width:640px){
+  .container{padding:36px 18px 60px;}
+  header{grid-template-columns:1fr;}
+  .avatar-wrap{width:110px;}.avatar-wrap img{width:110px;height:110px;}
+  .tl-item,.edu-item{grid-template-columns:1fr;gap:8px;}
+  .tl-left{flex-direction:row;align-items:center;flex-wrap:wrap;}
+  .edu-left{flex-direction:row;align-items:center;}
+  .cert-grid{grid-template-columns:1fr;}
+  .skills-row{grid-template-columns:1fr;gap:28px;}
+  .contact-form{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <button class="menu-toggle" id="menuToggle">☰</button>
 <nav id="navMenu">
-    <a href="#about">Kryštof</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#about-me">About Me</a>
+  <a href="#about" data-i18n="nav_about">Kryštof</a>
+  <a href="#experience" data-i18n="nav_exp">Experience</a>
+  <a href="#education" data-i18n="nav_edu">Education</a>
+  <a href="#certifications" data-i18n="nav_cert">Certifications</a>
+  <a href="#about-me" data-i18n="nav_me">About Me</a>
+  <div class="nav-controls">
+    <button class="nav-btn" id="darkToggle" onclick="toggleDark()">🌙</button>
+  </div>
 </nav>
 
-<!-- CZECH ICON WATERMARK using uploaded icon set, unmodified -->
 <div class="bg-watermark">
-    <img src="asset_5.png"  style="width:150px; top:6%;  left:4%;"  alt="">
-    <img src="asset_6.png"    style="width:130px; top:42%; left:2%;" alt="">
-    <img src="asset_7.png"  style="width:160px; top:62%; left:7%;" alt="">
-    <img src="asset_8.png" style="width:220px; top:4%;  left:78%;" alt="">
-    <img src="asset_9.png"    style="width:230px; top:68%; left:62%;" alt="">
-    <img src="asset_10.png"     style="width:110px; top:8%;  left:46%;" alt="">
-    <img src="asset_11.png" style="width:150px; top:78%; left:30%;" alt="">
-    <img src="asset_12.png"    style="width:160px; top:38%; left:46%;" alt="">
+  <img src="asset_5.png"  style="width:150px;top:6%;left:4%;" alt="">
+  <img src="asset_6.png"  style="width:130px;top:42%;left:2%;" alt="">
+  <img src="asset_7.png"  style="width:160px;top:62%;left:7%;" alt="">
+  <img src="asset_8.png"  style="width:220px;top:4%;left:78%;" alt="">
+  <img src="asset_9.png"  style="width:230px;top:68%;left:62%;" alt="">
+  <img src="asset_10.png" style="width:110px;top:8%;left:46%;" alt="">
+  <img src="asset_11.png" style="width:150px;top:78%;left:30%;" alt="">
+  <img src="asset_12.png" style="width:160px;top:38%;left:46%;" alt="">
 </div>
 
 <div class="flag-stripe"><span></span><span></span><span></span></div>
 
 <div class="container">
+
+<!-- HEADER -->
 <section id="about">
-   
-    <!-- HEADER -->
-    <header>
-        <div class="header-text">
-            <h1>Kryštof<br><em>Benka</em></h1>
-            <p class="header-sub">Vienna, Austria · CEE</p>
-            <div class="header-contacts">
-                <a href="mailto:krystof@krystofbenka.cz">krystof@krystofbenka.cz</a>
-                <a href="https://linkedin.com/in/krystofbenka1993" target="_blank" rel="noopener">linkedin.com/in/krystofbenka1993</a>
-                <span>📍 Vienna, Austria</span>
-            </div>
-        </div>
-        <div class="avatar-wrap">
-            <img src="asset_13.png" alt="Kryštof Benka" style="width:190px;height:190px;object-fit:contain;border-radius:12px;">
-            <p class="avatar-badge">Retail &amp; IT Advisor</p>
-        </div>
-    </header>
+<header>
+  <div class="header-text">
+    <h1>Kryštof<br><em>Benka</em></h1>
+    <p class="header-sub">Vienna, Austria · CEE</p>
+    <div class="header-contacts">
+      <a href="mailto:krystof@krystofbenka.cz">krystof@krystofbenka.cz</a>
+      <a href="https://linkedin.com/in/krystofbenka1993" target="_blank" rel="noopener">linkedin.com/in/krystofbenka1993</a>
+      <span>📍 Vienna, Austria</span>
+    </div>
 
-    <!-- ABOUT -->
-    <section>
-        <p class="section-label">About</p>
-        <p class="summary-text">A professional with a university background in IT Project Management, currently working as a System &amp; Process Advisor for REWE International in Vienna. Responsible for the continuous improvement of systems and processes across BILLA, PENNY, and BIPA stores in the CEE region. With study and work experience across four countries, I bring a strong cross-cultural perspective to international teams.</p>
-    </section>
-</section>
-<section id="experience">
-    <!-- EXPERIENCE -->
-    <section>
-        <p class="section-label">Experience</p>
-        <div class="timeline">
+  </div>
+  <div class="avatar-wrap">
+    <img src="asset_13.png" alt="Kryštof Benka" style="width:190px;height:190px;object-fit:contain;border-radius:12px;">
+    <p class="avatar-badge" data-i18n="avatar_badge">Retail &amp; IT Advisor</p>
+  </div>
+</header>
 
-            <div class="tl-item">
-                <div class="tl-left">
-                    <img class="tl-logo" src="asset_14.png" alt="REWE Group">
-                    <span class="tl-period">Jan 2025 –<br>Present</span>
-                </div>
-                <div class="tl-right">
-                    <div class="tl-role">Retail Systems &amp; Process Advisor CEE</div>
-                    <div class="tl-company">REWE International AG · Vienna</div>
-                    <div class="tl-desc">Member of the international Store Systems &amp; Solutions (iSSS) department, serving as an in-house service provider for the REWE Group's CEE Business Units. Responsible for the continuous improvement and support of systems and processes within BILLA, PENNY, and BIPA stores across the CEE region.</div>
-                    <div class="tl-tags"><span class="tl-tag">Retail Systems</span><span class="tl-tag">Process Improvement</span><span class="tl-tag">CEE</span><span class="tl-tag">BILLA · PENNY · BIPA</span></div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <img class="tl-logo" src="asset_15.png" alt="KCT Data">
-                    <span class="tl-period">Feb 2019 –<br>Jan 2025</span>
-                </div>
-                <div class="tl-right">
-                    <div class="tl-role">Project Manager</div>
-                    <div class="tl-company">KCT Data s.r.o. · Prague</div>
-                    <div class="tl-desc">Project manager at a Czech IT company specialising in SAP maintenance &amp; development and Java software development. Led SAP support projects, managed client relationships, delivered new SAP developments and S/4 HANA upgrade projects. Also provided marketing and administrative support.</div>
-                    <div class="tl-tags"><span class="tl-tag">SAP</span><span class="tl-tag">S/4 HANA</span><span class="tl-tag">Java</span><span class="tl-tag">Client Management</span></div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <img class="tl-logo" src="asset_16.png" alt="Škoda Auto">
-                    <span class="tl-period">May 2021 –<br>Dec 2024</span>
-                </div>
-                <div class="tl-right">
-                    <div class="tl-role">Project Manager (External)</div>
-                    <div class="tl-company">ŠKODA AUTO a.s. · Mladá Boleslav</div>
-                    <div class="tl-desc">Project management within an external Support &amp; Development team. Responsibilities included JIRA task management, deadline and budget coordination, IT &amp; business alignment for software development projects, invoicing and administrative tasks.</div>
-                    <div class="tl-tags"><span class="tl-tag">JIRA</span><span class="tl-tag">IT Coordination</span><span class="tl-tag">Budget</span><span class="tl-tag">Software Dev</span></div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <img class="tl-logo" src="asset_17.png" alt="Česká televize">
-                    <span class="tl-period">Nov 2015 –<br>Mar 2022</span>
-                </div>
-                <div class="tl-right">
-                    <div class="tl-role">Camera Operator (Freelance)</div>
-                    <div class="tl-company">Česká televize · Prague</div>
-                    <div class="tl-desc">Freelance camera operator for productions including Pošta pro Tebe, Partička, and various music and sports events.</div>
-                    <div class="tl-tags"><span class="tl-tag">Camera</span><span class="tl-tag">Freelance</span><span class="tl-tag">Live Events</span></div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <img class="tl-logo" src="asset_18.png" alt="EF Education First" style="max-height:34px;max-width:80px;">
-                    <span class="tl-period">Jul 2018 –<br>Oct 2018</span>
-                </div>
-                <div class="tl-right">
-                    <div class="tl-role">Marketing Intern</div>
-                    <div class="tl-company">EF Education First</div>
-                    <div class="tl-desc">Involved in online and offline marketing campaigns, social media management, direct mailing, event organisation and preparation of promotional materials.</div>
-                    <div class="tl-tags"><span class="tl-tag">Marketing</span><span class="tl-tag">Social Media</span><span class="tl-tag">Events</span></div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-</section>
-<section id="education">
-    <!-- EDUCATION -->
+<!-- ABOUT -->
 <section>
-        <p class="section-label">Education</p>
-        <div class="edu-grid">
-
-            <div class="edu-item">
-                <div class="edu-left">
-                    <img class="edu-logo" src="asset_19.jpg" alt="CTU Prague" style="border-radius:4px;">
-                    <span class="edu-period">2017 – 2019</span>
-                </div>
-                <div style="overflow: hidden;">
-                    <img src="https://flagcdn.com/w80/cz.png" alt="Česká republika" style="width: 50px; height: auto; float: right;">
-                    <div class="edu-school">Czech Technical University in Prague</div>
-                    <div class="edu-degree">Ing. — Management of Innovations</div>
-                </div>
-            </div>
-
-            <div class="edu-item">
-                <div class="edu-left">
-                    <img class="edu-logo" src="asset_20.jpg" alt="CTU Prague" style="border-radius:4px;">
-                    <span class="edu-period">2014 – 2017</span>
-                </div>
-                <div style="overflow: hidden;">
-                    <img src="https://flagcdn.com/w80/cz.png" alt="Česká republika" style="width: 50px; height: auto; float: right;">
-                    <div class="edu-school">Czech Technical University in Prague</div>
-                    <div class="edu-degree">Bc. — Personal Management</div>
-                </div>
-            </div>
-
-            <div class="edu-item">
-                <div class="edu-left">
-                    <img class="edu-logo" src="asset_21.jpg" alt="NSYSU" style="border-radius:4px;">
-                    <span class="edu-period">2018</span>
-                </div>
-                <div style="overflow: hidden;">
-                    <img src="https://flagcdn.com/w80/tw.png" alt="Taiwan" style="width: 50px; height: auto; float: right;">
-                    <div class="edu-school">Erasmus: National Sun Yat-sen University</div>
-                    <div class="edu-degree">Management — Taiwan</div>
-                </div>
-            </div>
-
-            <div class="edu-item">
-                <div class="edu-left">
-                    <img class="edu-logo" src="asset_22.jpg" alt="VILNIUS TECH" style="border-radius:4px;">
-                    <span class="edu-period">2016 – 2017</span>
-                </div>
-                <div style="overflow: hidden;">
-                    <img src="https://flagcdn.com/w80/lt.png" alt="Litva" style="width: 50px; height: auto; float: right;">
-                    <div class="edu-school">Erasmus: Vilnius Technical University</div>
-                    <div class="edu-degree">Business and Management — Lithuania</div>
-                </div>
-            </div>
-
-            <div class="edu-item">
-                <div class="edu-left">
-                    <img class="edu-logo" src="asset_23.png" alt="Victor High School" style="border-radius:4px;">
-                    <span class="edu-period">2011 – 2012</span>
-                </div>
-                <div style="overflow: hidden;">
-                    <img src="https://flagcdn.com/w80/us.png" alt="USA" style="width: 50px; height: auto; float: right;">
-                    <div class="edu-school">Study Exchange: Victor High School</div>
-                    <div class="edu-degree">High School · United States, Montana</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
+  <p class="section-label" data-i18n="section_about">About</p>
+  <p class="summary-text" data-i18n="about_text">A professional with a university background in IT Project Management, currently working as a System &amp; Process Advisor for REWE International in Vienna. Responsible for the continuous improvement of systems and processes across BILLA, PENNY, and BIPA stores in the CEE region. With study and work experience across four countries, I bring a strong cross-cultural perspective to international teams.</p>
 </section>
-    <!-- SKILLS & LANGUAGES -->
-    <section>
-        <p class="section-label">Skills &amp; Languages</p>
-        <div class="skills-row">
-            <div>
-                <div class="skill-pills">
-                    <span class="skill-pill">Artificial Intelligence</span>
-                    <span class="skill-pill">Software Project Mgmt</span>
-                    <span class="skill-pill">Process Analysis</span>
-                    <span class="skill-pill">SAP</span>
-                    <span class="skill-pill">JIRA</span>
-                    <span class="skill-pill">MS Office</span>
-                    <span class="skill-pill">Presentation Skills</span>
-                    <span class="skill-pill">Data Analysis</span>
-                </div>
-            </div>
-            <div>
-                <div class="lang-list">
-                    <div class="lang-item"><span class="lang-name">Czech</span><span class="lang-level">Native</span></div>
-                    <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Native / Bilingual</span></div>
-                    <div class="lang-item"><span class="lang-name">German</span><span class="lang-level">Elementary</span></div>
-                    <div class="lang-item"><span class="lang-name">Italian</span><span class="lang-level">Elementary</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-<section id="certifications">
-    <!-- CERTIFICATIONS -->
-    <section>
-        <p class="section-label">Certifications</p>
-        <div class="cert-grid">
-            <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/PN3NU42DT5YH" class="cert-card" target="_blank" rel="noopener">
-                <img class="cert-logo" src="asset_24.bin" alt="Google">
-                <div class="cert-info">
-                    <div class="cert-name">Google Data Analytics</div>
-                    <div class="cert-provider">Google · Coursera</div>
-                </div>
-                <span class="cert-arrow">↗</span>
-            </a>
-            <a href="https://www.coursera.org/account/accomplishments/specialization/4I9G1SJDLUGM" class="cert-card" target="_blank" rel="noopener">
-                <img class="cert-logo" src="asset_25.bin" alt="Google">
-                <div class="cert-info">
-                    <div class="cert-name">Google AI Expert</div>
-                    <div class="cert-provider">Google · Coursera</div>
-                </div>
-                <span class="cert-arrow">↗</span>
-            </a>
-            <a href="https://www.coursera.org/account/accomplishments/specialization/VQY13ZL9QUOD" class="cert-card" target="_blank" rel="noopener">
-                <div style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🤖</div>
-                <div class="cert-info">
-                    <div class="cert-name">ChatGPT Master</div>
-                    <div class="cert-provider">Vanderbilt University · Coursera</div>
-                </div>
-                <span class="cert-arrow">↗</span>
-            </a>
-        </div>
-    </section>
-    </section>
-<section id="about-me">
-    <!-- SOFT SKILLS BUBBLES -->
-    <section>
-        <p class="section-label">About Me</p>
-        <p class="bubble-hint">Click a bubble to learn more</p>
-        <div class="ocean-scene" id="oceanScene">
-            <canvas class="fish-canvas" id="fishCanvas"></canvas>
-            <div class="ocean-rock" style="left:2%; width:70px; height:34px;"></div>
-            <div class="ocean-rock" style="left:12%; width:46px; height:24px;"></div>
-            <div class="ocean-rock" style="right:4%; width:80px; height:38px;"></div>
-            <div class="ocean-rock" style="right:18%; width:40px; height:20px;"></div>
-            <div class="ocean-seaweed" style="left:4%; height:90px; animation: sway 4.5s ease-in-out infinite;">
-                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q2,75 10,55 Q18,35 8,15 Q4,8 10,0" stroke="#3d8a4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-            </div>
-            <div class="ocean-seaweed" style="left:9%; height:65px; animation: sway 3.8s ease-in-out infinite 0.4s;">
-                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q18,80 9,60 Q2,42 11,20 Q14,10 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-            </div>
-            <div class="ocean-seaweed" style="right:6%; height:80px; animation: sway 5.2s ease-in-out infinite 0.2s;">
-                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q2,78 11,58 Q19,38 9,18 Q5,9 10,0" stroke="#3d8a4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-            </div>
-            <div class="ocean-seaweed" style="right:11%; height:55px; animation: sway 4.1s ease-in-out infinite 0.6s;">
-                <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q17,82 9,62 Q3,44 12,22 Q15,11 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-            </div>
-            <div class="ocean-floor"></div>
-            <canvas class="ocean-canvas" id="bubbleCanvas"></canvas>
-            <div class="thankyou-box" id="thankyouBox">
-                <div class="thankyou-inner">
-                    <div class="thankyou-bubble-icon"></div>
-                    <div class="thankyou-title">Thank you for your interest</div>
-                    <p class="thankyou-sub">Please <a href="mailto:krystof@krystofbenka.cz">contact me</a> if you wish to know more...</p>
-                    <button class="thankyou-reset" id="resetBubbles">↺ Reset bubbles</button>
-                </div>
-            </div>
-        </div>
-    </section>
-    </section>
-    <footer>
-        <span>© 2026 Kryštof Benka</span>
-        <span>Retail Systems &amp; Process Advisor · CEE</span>
-        <span>Vienna, Austria</span>
-    </footer>
+</section>
 
-</div>
+<!-- EXPERIENCE -->
+<section id="experience">
+<section>
+  <p class="section-label" data-i18n="section_exp">Experience</p>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <img class="tl-logo" src="asset_14.png" alt="REWE Group">
+        <span class="tl-period">Jan 2025 –<br>Present</span>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role" data-i18n="job1_role">Retail Systems &amp; Process Advisor CEE</div>
+        <div class="tl-company">REWE International AG · Vienna</div>
+        <div class="tl-desc" data-i18n="job1_desc">Member of the international Store Systems &amp; Solutions (iSSS) department, serving as an in-house service provider for the REWE Group's CEE Business Units. Responsible for the continuous improvement and support of systems and processes within BILLA, PENNY, and BIPA stores across the CEE region.</div>
+        <div class="tl-tags"><span class="tl-tag">Retail Systems</span><span class="tl-tag">Process Improvement</span><span class="tl-tag">CEE</span><span class="tl-tag">BILLA · PENNY · BIPA</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <img class="tl-logo" src="asset_15.png" alt="KCT Data">
+        <span class="tl-period">Feb 2019 –<br>Jan 2025</span>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role" data-i18n="job2_role">Project Manager</div>
+        <div class="tl-company">KCT Data s.r.o. · Prague</div>
+        <div class="tl-desc" data-i18n="job2_desc">Project manager at a Czech IT company specialising in SAP maintenance &amp; development and Java software development. Led SAP support projects, managed client relationships, delivered new SAP developments and S/4 HANA upgrade projects. Also provided marketing and administrative support.</div>
+        <div class="tl-tags"><span class="tl-tag">SAP</span><span class="tl-tag">S/4 HANA</span><span class="tl-tag">Java</span><span class="tl-tag">Client Management</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <img class="tl-logo" src="asset_16.png" alt="Škoda Auto">
+        <span class="tl-period">May 2021 –<br>Dec 2024</span>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role" data-i18n="job3_role">Project Manager (External)</div>
+        <div class="tl-company">ŠKODA AUTO a.s. · Mladá Boleslav</div>
+        <div class="tl-desc" data-i18n="job3_desc">Project management within an external Support &amp; Development team. Responsibilities included JIRA task management, deadline and budget coordination, IT &amp; business alignment for software development projects, invoicing and administrative tasks.</div>
+        <div class="tl-tags"><span class="tl-tag">JIRA</span><span class="tl-tag">IT Coordination</span><span class="tl-tag">Budget</span><span class="tl-tag">Software Dev</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <img class="tl-logo" src="asset_17.png" alt="Česká televize">
+        <span class="tl-period">Nov 2015 –<br>Mar 2022</span>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role" data-i18n="job4_role">Camera Operator (Freelance)</div>
+        <div class="tl-company">Česká televize · Prague</div>
+        <div class="tl-desc" data-i18n="job4_desc">Freelance camera operator for productions including Pošta pro Tebe, Partička, and various music and sports events.</div>
+        <div class="tl-tags"><span class="tl-tag">Camera</span><span class="tl-tag">Freelance</span><span class="tl-tag">Live Events</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <img class="tl-logo" src="asset_18.png" alt="EF Education First" style="max-height:34px;max-width:80px;">
+        <span class="tl-period">Jul 2018 –<br>Oct 2018</span>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role" data-i18n="job5_role">Marketing Intern</div>
+        <div class="tl-company">EF Education First</div>
+        <div class="tl-desc" data-i18n="job5_desc">Involved in online and offline marketing campaigns, social media management, direct mailing, event organisation and preparation of promotional materials.</div>
+        <div class="tl-tags"><span class="tl-tag">Marketing</span><span class="tl-tag">Social Media</span><span class="tl-tag">Events</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+<section>
+  <p class="section-label" data-i18n="section_edu">Education</p>
+  <div class="edu-grid">
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <img class="edu-logo" src="asset_19.jpg" alt="CTU Prague" style="border-radius:4px;">
+        <span class="edu-period">2017 – 2019</span>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="https://flagcdn.com/w80/cz.png" alt="Česká republika" style="width:50px;height:auto;float:right;">
+        <div class="edu-school">Czech Technical University in Prague</div>
+        <div class="edu-degree" data-i18n="edu1_deg">Ing. — Management of Innovations</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <img class="edu-logo" src="asset_20.jpg" alt="CTU Prague" style="border-radius:4px;">
+        <span class="edu-period">2014 – 2017</span>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="https://flagcdn.com/w80/cz.png" alt="Česká republika" style="width:50px;height:auto;float:right;">
+        <div class="edu-school">Czech Technical University in Prague</div>
+        <div class="edu-degree" data-i18n="edu2_deg">Bc. — Personal Management</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <img class="edu-logo" src="asset_21.jpg" alt="NSYSU" style="border-radius:4px;">
+        <span class="edu-period">2018</span>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="https://flagcdn.com/w80/tw.png" alt="Taiwan" style="width:50px;height:auto;float:right;">
+        <div class="edu-school">Erasmus: National Sun Yat-sen University</div>
+        <div class="edu-degree" data-i18n="edu3_deg">Management — Taiwan</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <img class="edu-logo" src="asset_22.jpg" alt="VILNIUS TECH" style="border-radius:4px;">
+        <span class="edu-period">2016 – 2017</span>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="https://flagcdn.com/w80/lt.png" alt="Litva" style="width:50px;height:auto;float:right;">
+        <div class="edu-school">Erasmus: Vilnius Technical University</div>
+        <div class="edu-degree" data-i18n="edu4_deg">Business and Management — Lithuania</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <img class="edu-logo" src="asset_23.png" alt="Victor High School" style="border-radius:4px;">
+        <span class="edu-period">2011 – 2012</span>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="https://flagcdn.com/w80/us.png" alt="USA" style="width:50px;height:auto;float:right;">
+        <div class="edu-school">Study Exchange: Victor High School</div>
+        <div class="edu-degree" data-i18n="edu5_deg">High School · United States, Montana</div>
+      </div>
+    </div>
+
+  </div>
+
+
+</section>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <p class="section-label" data-i18n="section_skills">Skills &amp; Languages</p>
+  <div class="skills-row">
+    <div>
+      <div class="skill-pills">
+        <span class="skill-pill" data-i18n="skill1">Artificial Intelligence</span>
+        <span class="skill-pill" data-i18n="skill2">Software Project Mgmt</span>
+        <span class="skill-pill" data-i18n="skill3">Process Analysis</span>
+        <span class="skill-pill">SAP</span>
+        <span class="skill-pill">JIRA</span>
+        <span class="skill-pill">MS Office</span>
+        <span class="skill-pill" data-i18n="skill6">Presentation Skills</span>
+        <span class="skill-pill" data-i18n="skill7">Data Analysis</span>
+      </div>
+    </div>
+    <div>
+      <div class="lang-list">
+        <div class="lang-item"><span class="lang-name" data-i18n="lang1">Czech</span><span class="lang-level" data-i18n="lang1_lvl">Native</span></div>
+        <div class="lang-item"><span class="lang-name" data-i18n="lang2">English</span><span class="lang-level" data-i18n="lang2_lvl">Native / Bilingual</span></div>
+        <div class="lang-item"><span class="lang-name" data-i18n="lang3">German</span><span class="lang-level" data-i18n="lang3_lvl">Elementary</span></div>
+        <div class="lang-item"><span class="lang-name" data-i18n="lang4">Italian</span><span class="lang-level" data-i18n="lang4_lvl">Elementary</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+<section>
+  <p class="section-label" data-i18n="section_cert">Certifications</p>
+  <div class="cert-grid">
+    <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/PN3NU42DT5YH" class="cert-card" target="_blank" rel="noopener">
+      <img class="cert-logo" src="asset_24.bin" alt="Google">
+      <div class="cert-info"><div class="cert-name">Google Data Analytics</div><div class="cert-provider">Google · Coursera</div></div>
+      <span class="cert-arrow">↗</span>
+    </a>
+    <a href="https://www.coursera.org/account/accomplishments/specialization/4I9G1SJDLUGM" class="cert-card" target="_blank" rel="noopener">
+      <img class="cert-logo" src="asset_25.bin" alt="Google">
+      <div class="cert-info"><div class="cert-name">Google AI Expert</div><div class="cert-provider">Google · Coursera</div></div>
+      <span class="cert-arrow">↗</span>
+    </a>
+    <a href="https://www.coursera.org/account/accomplishments/specialization/VQY13ZL9QUOD" class="cert-card" target="_blank" rel="noopener">
+      <div style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🤖</div>
+      <div class="cert-info"><div class="cert-name">ChatGPT Master</div><div class="cert-provider">Vanderbilt University · Coursera</div></div>
+      <span class="cert-arrow">↗</span>
+    </a>
+  </div>
+</section>
+</section>
+
+<!-- ABOUT ME / BUBBLES -->
+<section id="about-me">
+<section>
+  <p class="section-label" data-i18n="section_me">About Me</p>
+  <p class="bubble-hint" data-i18n="bubble_hint">Click a bubble to learn more</p>
+  <div class="ocean-scene" id="oceanScene">
+    <canvas class="fish-canvas" id="fishCanvas"></canvas>
+    <div class="ocean-rock" style="left:2%;width:70px;height:34px;"></div>
+    <div class="ocean-rock" style="left:12%;width:46px;height:24px;"></div>
+    <div class="ocean-rock" style="right:4%;width:80px;height:38px;"></div>
+    <div class="ocean-rock" style="right:18%;width:40px;height:20px;"></div>
+    <div class="ocean-seaweed" style="left:4%;height:90px;animation:sway 4.5s ease-in-out infinite;">
+      <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q2,75 10,55 Q18,35 8,15 Q4,8 10,0" stroke="#3d8a4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ocean-seaweed" style="left:9%;height:65px;animation:sway 3.8s ease-in-out infinite 0.4s;">
+      <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q18,80 9,60 Q2,42 11,20 Q14,10 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ocean-seaweed" style="right:6%;height:80px;animation:sway 5.2s ease-in-out infinite 0.2s;">
+      <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q2,78 11,58 Q19,38 9,18 Q5,9 10,0" stroke="#3d8a4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ocean-seaweed" style="right:11%;height:55px;animation:sway 4.1s ease-in-out infinite 0.6s;">
+      <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q17,82 9,62 Q3,44 12,22 Q15,11 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ocean-floor"></div>
+    <canvas class="ocean-canvas" id="bubbleCanvas"></canvas>
+    <div class="thankyou-box" id="thankyouBox">
+      <div class="thankyou-inner">
+        <div class="thankyou-bubble-icon"></div>
+        <div class="thankyou-title" data-i18n="ty_title">Thank you for your interest</div>
+        <p class="thankyou-sub"><span data-i18n="ty_sub">Please</span> <a href="mailto:krystof@krystofbenka.cz" data-i18n="ty_link">contact me</a> <span data-i18n="ty_sub2">if you wish to know more...</span></p>
+        <button class="thankyou-reset" id="resetBubbles" data-i18n="ty_reset">↺ Reset bubbles</button>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+
+<!-- CONTACT FORM -->
+<section id="contact">
+<section>
+  <p class="section-label" data-i18n="section_contact">Contact</p>
+  <div class="contact-form" id="contactForm">
+    <input type="text" id="cf_name" placeholder="Name" data-i18n-ph="cf_name_ph" required>
+    <input type="email" id="cf_email" placeholder="Email" data-i18n-ph="cf_email_ph" required>
+    <textarea class="full" id="cf_msg" placeholder="Message" data-i18n-ph="cf_msg_ph" required></textarea>
+    <div class="full" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <button class="contact-submit" id="cf_submit" data-i18n="cf_send">Send Message</button>
+      <span class="contact-status" id="cf_status"></span>
+    </div>
+  </div>
+</section>
+</section>
+
+<footer>
+  <span>© 2026 Kryštof Benka</span>
+  <span data-i18n="footer_role">Retail Systems &amp; Process Advisor · CEE</span>
+  <span>Vienna, Austria</span>
+</footer>
+
+</div><!-- /container -->
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal">
-    <div class="modal-box">
-        <div class="modal-accent"></div>
-        <h3 class="modal-title" id="modalTitle"></h3>
-        <p class="modal-desc" id="modalDesc"></p>
-        <button class="modal-close" id="modalClose">Close</button>
-    </div>
+  <div class="modal-box">
+    <div class="modal-accent"></div>
+    <h3 class="modal-title" id="modalTitle"></h3>
+    <p class="modal-desc" id="modalDesc"></p>
+    <button class="modal-close" id="modalClose" data-i18n="modal_close">Close</button>
+  </div>
 </div>
 
 <script>
+/* ── i18n ── */
+const T = {
+  en: {
+    nav_about:"Kryštof", nav_exp:"Experience", nav_edu:"Education", nav_cert:"Certifications", nav_me:"About Me",
+    cv_download:"↓ Download CV",
+    avatar_badge:"Retail & IT Advisor",
+    section_about:"About",
+    about_text:"A professional with a university background in IT Project Management, currently working as a System & Process Advisor for REWE International in Vienna. Responsible for the continuous improvement of systems and processes across BILLA, PENNY, and BIPA stores in the CEE region. With study and work experience across four countries, I bring a strong cross-cultural perspective to international teams.",
+    section_exp:"Experience",
+    job1_role:"Retail Systems & Process Advisor CEE",
+    job1_desc:"Member of the international Store Systems & Solutions (iSSS) department, serving as an in-house service provider for the REWE Group's CEE Business Units. Responsible for the continuous improvement and support of systems and processes within BILLA, PENNY, and BIPA stores across the CEE region.",
+    job2_role:"Project Manager",
+    job2_desc:"Project manager at a Czech IT company specialising in SAP maintenance & development and Java software development. Led SAP support projects, managed client relationships, delivered new SAP developments and S/4 HANA upgrade projects. Also provided marketing and administrative support.",
+    job3_role:"Project Manager (External)",
+    job3_desc:"Project management within an external Support & Development team. Responsibilities included JIRA task management, deadline and budget coordination, IT & business alignment for software development projects, invoicing and administrative tasks.",
+    job4_role:"Camera Operator (Freelance)",
+    job4_desc:"Freelance camera operator for productions including Pošta pro Tebe, Partička, and various music and sports events.",
+    job5_role:"Marketing Intern",
+    job5_desc:"Involved in online and offline marketing campaigns, social media management, direct mailing, event organisation and preparation of promotional materials.",
+    section_edu:"Education",
+    edu1_deg:"Ing. — Management of Innovations",
+    edu2_deg:"Bc. — Personal Management",
+    edu3_deg:"Management — Taiwan",
+    edu4_deg:"Business and Management — Lithuania",
+    edu5_deg:"High School · United States, Montana",
+    section_skills:"Skills & Languages",
+    skill1:"Artificial Intelligence", skill2:"Software Project Mgmt", skill3:"Process Analysis",
+    skill6:"Presentation Skills", skill7:"Data Analysis",
+    lang1:"Czech", lang1_lvl:"Native",
+    lang2:"English", lang2_lvl:"Native / Bilingual",
+    lang3:"German", lang3_lvl:"Elementary",
+    lang4:"Italian", lang4_lvl:"Elementary",
+    section_cert:"Certifications",
+    section_me:"About Me",
+    bubble_hint:"Click a bubble to learn more",
+    ty_title:"Thank you for your interest",
+    ty_sub:"Please", ty_link:"contact me", ty_sub2:"if you wish to know more...",
+    ty_reset:"↺ Reset bubbles",
+    section_contact:"Contact",
+    cf_name_ph:"Name", cf_email_ph:"Email", cf_msg_ph:"Message",
+    cf_send:"Send Message",
+    cf_ok:"Message sent! I'll get back to you soon.",
+    cf_err:"Something went wrong. Please try again.",
+    footer_role:"Retail Systems & Process Advisor · CEE",
+    modal_close:"Close",
+    bubble_titles:["AI","International","Management","Creativity","Adaptability","Sports","Presentation Skills","Analytical Approach","Interest in the World"],
+    bubble_descs:[
+      "I try to follow the latest AI trends and test new models and features daily, even though that seems like a task more difficult each day. I am actively applying AI in my work and personal life as well!",
+      "Having grown up in Czechia, studied in the US, Lithuania and Taiwan, working in Austria for an international company and dealing with people from all over the world in both professional and personal life, I feel set up to fit into any international setting or environment.",
+      "Project Management of Innovations was my Masters degree at Czech Technical University. I also worked for more than five years as a Project Manager in Prague as my first professional work experience. I believe management skills are needed to succeed in most professions in any field.",
+      "I hope this bubble animation speaks for itself!",
+      "I don't always have all the answers or know everything. But I believe one of my biggest strengths is being able to adapt in a lot of uncomfortable situations.",
+      "Sports is a big part of my life. I played Ice Hockey or some other sports for all of my life. Being active is something I try to do every day and I believe it helped me build up my character also for my professional life.",
+      "One of my biggest strengths is being able to present in front of an audience. It's better if I can prepare, but ad-hoc presentations of complex topics is not a problem either!",
+      "I approach a lot of tasks with a strong analytical approach. I admit, sometimes it can be a disadvantage, but I don't mind getting into details and deep into a topic by analysing data and context.",
+      "I like to follow important news and what is going on in the world for most topics — Politics, Culture, Sports, Technology... I think it is important to have a wide range of interests and I am always interested in learning something new."
+    ]
+  },
+  cz: {
+    nav_about:"Kryštof", nav_exp:"Zkušenosti", nav_edu:"Vzdělání", nav_cert:"Certifikáty", nav_me:"O mně",
+    cv_download:"↓ Stáhnout CV",
+    avatar_badge:"Poradce pro maloobchod & IT",
+    section_about:"O mně",
+    about_text:"Vystudoval jsem projektové řízení inovací na ČVUT a v současné době pracuji jako systémový a procesní poradce pro REWE International ve Vídni. Zodpovídám za neustálé zlepšování systémů a procesů v prodejnách BILLA, PENNY a BIPA v regionu střední a východní Evropy. Studoval jsem jak na západě v USA, na východě na Taiwanu i na severu v Litvě. Mám rád mezinárodní prostředí, ale vždy se rád vracím do Prahy, kde jsem se narodil a vyrůstal.",
+    section_exp:"Zkušenosti",
+    job1_role:"Poradce pro maloobchodní systémy a procesy CEE",
+    job1_desc:"Člen mezinárodního oddělení Store Systems & Solutions (iSSS), které funguje jako interní poskytovatel služeb pro CEE obchodní jednotky skupiny REWE. Zodpovídám za kontinuální zlepšování a podporu systémů a procesů v prodejnách BILLA, PENNY a BIPA v regionu CEE.",
+    job2_role:"Projektový manažer",
+    job2_desc:"Projektový manažer v české IT společnosti specializující se na údržbu a vývoj SAP a vývoj softwaru v Javě. Vedl jsem projekty podpory SAP, spravoval vztahy s klienty, realizoval nové SAP projekty a upgrady na S/4 HANA. Poskytoval jsem také marketingovou a administrativní podporu.",
+    job3_role:"Projektový manažer (externí)",
+    job3_desc:"Projektové řízení v rámci externího týmu podpory a vývoje. Náplň práce zahrnovala správu úkolů v JIRA, koordinaci termínů a rozpočtu, sladění IT s byznysem v softwarových projektech, fakturaci a administrativní úkoly.",
+    job4_role:"Kameraman (freelance)",
+    job4_desc:"Freelance kameraman pro pořady jako Pošta pro Tebe, Partička a různé hudební a sportovní akce.",
+    job5_role:"Marketingový stážista",
+    job5_desc:"Podílel jsem se na online i offline marketingových kampaních, správě sociálních sítí, direct mailingu, organizaci akcí a přípravě propagačních materiálů.",
+    section_edu:"Vzdělání",
+    edu1_deg:"Ing. — Management inovací",
+    edu2_deg:"Bc. — Personální management",
+    edu3_deg:"Management — Taiwan",
+    edu4_deg:"Business and Management — Litva",
+    edu5_deg:"Střední škola · USA, Montana",
+    section_skills:"Dovednosti & Jazyky",
+    skill1:"Umělá inteligence", skill2:"Řízení IT projektů", skill3:"Procesní analýza",
+    skill6:"Prezentační dovednosti", skill7:"Datová analýza",
+    lang1:"Čeština", lang1_lvl:"Rodný jazyk",
+    lang2:"Angličtina", lang2_lvl:"Rodný jazyk / bilingvní",
+    lang3:"Němčina", lang3_lvl:"Základní znalost",
+    lang4:"Italština", lang4_lvl:"Základní znalost",
+    section_cert:"Certifikáty",
+    section_me:"O mně",
+    bubble_hint:"Klikněte na bublinu pro více informací",
+    ty_title:"Děkuji za váš zájem",
+    ty_sub:"Prosím", ty_link:"kontaktujte mě", ty_sub2:"pokud chcete vědět více...",
+    ty_reset:"↺ Obnovit bubliny",
+    section_contact:"Kontakt",
+    cf_name_ph:"Jméno", cf_email_ph:"E-mail", cf_msg_ph:"Zpráva",
+    cf_send:"Odeslat zprávu",
+    cf_ok:"Zpráva odeslána! Ozvu se co nejdříve.",
+    cf_err:"Něco se pokazilo. Zkuste to prosím znovu.",
+    footer_role:"Poradce pro maloobchodní systémy a procesy · CEE",
+    modal_close:"Zavřít",
+    bubble_titles:["AI","Mezinárodní prostředí","Management","Kreativita","Adaptabilita","Sport","Prezentační dovednosti","Analytický přístup","Zájem o svět"],
+    bubble_descs:[
+      "Snažím se sledovat nejnovější trendy v oblasti AI a každý den testuji nové modely a funkce, i když to je stále náročnější. AI aktivně využívám jak v práci, tak v osobním životě!",
+      "Vyrůstal jsem v Česku, studoval v USA, Litvě a na Taiwanu, pracuji v Rakousku pro mezinárodní firmu a v osobním i profesním životě se setkávám s lidmi z celého světa. Cítím se připraven zapadnout do jakéhokoli mezinárodního prostředí.",
+      "Projektové řízení inovací bylo mým magisterským oborem na ČVUT. Zároveň jsem více než pět let pracoval jako projektový manažer v Praze. Věřím, že manažerské dovednosti jsou klíčem k úspěchu ve většině profesí.",
+      "Doufám, že tato bublinová animace mluví za sebe!",
+      "Nemám vždy všechny odpovědi. Ale věřím, že jednou z mých největších silných stránek je schopnost přizpůsobit se i nepříjemným situacím.",
+      "Sport je velkou součástí mého života. Celý život jsem hrával hokej nebo jiné sporty. Aktivní pohyb se snažím zařadit každý den a věřím, že mi pomohl formovat charakter i v profesním životě.",
+      "Jednou z mých největších silných stránek je schopnost prezentovat před publikem. Raději se připravím, ale improvizované prezentace složitých témat pro mě také nejsou problém!",
+      "K mnoha úkolům přistupuji analyticky. Přiznávám, že to může být někdy nevýhoda, ale nevadí mi jít do detailů a ponořit se hluboko do tématu prostřednictvím analýzy dat a kontextu.",
+      "Rád sleduji důležité zprávy a dění ve světě napříč tématy — politika, kultura, sport, technologie... Myslím, že je důležité mít široký záběr zájmů a vždy se rád učím něco nového."
+    ]
+  }
+};
+
+let lang = 'en';
+function setLang(l) {
+  lang = l;
+  document.getElementById('btnEN').classList.toggle('active', l==='en');
+  document.getElementById('btnCZ').classList.toggle('active', l==='cz');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (T[l][k] !== undefined) el.textContent = T[l][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.getAttribute('data-i18n-ph');
+    if (T[l][k] !== undefined) el.placeholder = T[l][k];
+  });
+  // update bubbles live
+  bubbles.forEach((b, i) => {
+    b.title = T[l].bubble_titles[i];
+    b.desc  = T[l].bubble_descs[i];
+  });
+}
+
+/* ── DARK MODE ── */
+function toggleDark() {
+  const d = document.documentElement;
+  const isDark = d.getAttribute('data-theme') === 'dark';
+  d.setAttribute('data-theme', isDark ? '' : 'dark');
+  document.getElementById('darkToggle').textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+(function(){
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    document.getElementById('darkToggle').textContent = '☀️';
+  }
+})();
+
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const s = document.documentElement;
+  const pct = (s.scrollTop / (s.scrollHeight - s.clientHeight)) * 100;
+  document.getElementById('scrollProgress').style.width = pct + '%';
+});
+
+/* ── CONTACT FORM ── */
+document.getElementById('cf_submit').addEventListener('click', async () => {
+  const name = document.getElementById('cf_name').value.trim();
+  const email = document.getElementById('cf_email').value.trim();
+  const msg = document.getElementById('cf_msg').value.trim();
+  const status = document.getElementById('cf_status');
+  if (!name || !email || !msg) { status.textContent = '⚠ Please fill in all fields.'; return; }
+  document.getElementById('cf_submit').disabled = true;
+  status.textContent = '...';
+  try {
+    const res = await fetch('https://formspree.io/f/xwvjgqav', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({name,email,message:msg})
+    });
+    if (res.ok) {
+      status.textContent = T[lang].cf_ok;
+      document.getElementById('cf_name').value = '';
+      document.getElementById('cf_email').value = '';
+      document.getElementById('cf_msg').value = '';
+    } else { status.textContent = T[lang].cf_err; }
+  } catch(e) { status.textContent = T[lang].cf_err; }
+  document.getElementById('cf_submit').disabled = false;
+});
+
+/* ── BUBBLES ── */
 const canvas = document.getElementById("bubbleCanvas");
 const ctx    = canvas.getContext("2d");
 const fishCanvas = document.getElementById("fishCanvas");
@@ -805,345 +729,151 @@ const modal  = document.getElementById("modal");
 const thankyouBox = document.getElementById("thankyouBox");
 let bubbles  = [], animId, fishAnimId;
 
-const skills = [
-  { title:"AI",            desc:"I try to follow the latest AI trends and test new models and features daily, even though that seems like a task more difficult each day. I am actively applying AI in my work and personal life as well!" },
-    { title:"International", desc:"Having grow up in Czechia, studied in the US, Lithuania and Taiwan, working in Austria for international company and dealing with people from all over World in both professional and personal life, I feel that I am set up to be able to fit into any international setting or environment." },
-    { title:"Management",    desc:"Project Management of Innovations was my Masters degree at Czech Technical University. I also worked for more than five years as a Project Manager in Prague as my first professional work experience. I believe management skills are needed to succeed in most of the professions in any field." },
-    { title:"Creativity",    desc:"I hope this bubble animation speaks for itself!" },
-    { title:"Adaptability",  desc:"I don't always have all the answers or know everything. But I believe one of my biggest strenghts is being able to adapt in a lot of uncomfortable situations." },
-    { title:"Sports",    desc:"Sports is a big part of my life. I played Ice Hockey or some other sports for all of my life. Being active is something I try to do every day and I believe it helped me build up my character also for my professional life." },
-    { title:"Presentation Skills", desc:"One of my biggest strenghts is being able to present in front of an audience. Its better if I can prepare, but ad-hoc presentations of complex topics is not a problem either!" },
-    { title:"Analytical Approach", desc:"I approach a lot of tasks with a strong analytical approach. I admit, sometimes it can be a disadvantage, but I don´t mind getting into details and deep into a topic by analysing data and context." },
-    { title:"Interest in the World", desc:"I like to follow the important news, what is going on in the world for most topics. Politics, Culture, Sports, Technology, ... I think it is important to have a wide range of interests and I am always interested in learning something new" }
-];
-
 const R = 44;
 
 function resize(){
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    fishCanvas.width = fishCanvas.offsetWidth;
-    fishCanvas.height = fishCanvas.offsetHeight;
+  canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+  fishCanvas.width = fishCanvas.offsetWidth; fishCanvas.height = fishCanvas.offsetHeight;
 }
 
 function initBubbles(){
-    thankyouBox.classList.remove("visible");
-    canvas.style.display = "block";
-    document.querySelector(".bubble-hint").style.display = "block";
-    resize();
-    bubbles = skills.map((s,i) => {
-        let x,y,tries=0;
-        do {
-            x = Math.random()*(canvas.width-R*2.4)+R*1.2;
-            y = Math.random()*(canvas.height-R*2.4)+R*1.2;
-            tries++;
-        } while (tries<80 && bubbles.some(b=>Math.hypot(b.x-x,b.y-y)<R*2.1));
-        return {
-            ...s, x, y,
-            vx:(Math.random()-0.5)*0.7,
-            vy:-(0.1+Math.random()*0.25),   // gentle drift, will bounce off tank walls
-            baseY:y,
-            radius:R,
-            wobble:Math.random()*Math.PI*2,
-            wobbleSpeed:0.015+Math.random()*0.01,
-            popped:false
-        };
-    });
+  thankyouBox.classList.remove("visible");
+  canvas.style.display = "block";
+  const hint = document.querySelector(".bubble-hint");
+  if (hint) hint.style.display = "block";
+  resize();
+  bubbles = T[lang].bubble_titles.map((title, i) => {
+    let x,y,tries=0;
+    do {
+      x = Math.random()*(canvas.width-R*2.4)+R*1.2;
+      y = Math.random()*(canvas.height-R*2.4)+R*1.2;
+      tries++;
+    } while(tries<80 && bubbles.some(b=>Math.hypot(b.x-x,b.y-y)<R*2.1));
+    return {
+      title, desc: T[lang].bubble_descs[i],
+      x, y,
+      vx:(Math.random()-0.5)*0.7,
+      vy:-(0.1+Math.random()*0.25),
+      radius:R,
+      wobble:Math.random()*Math.PI*2,
+      wobbleSpeed:0.015+Math.random()*0.01,
+      popped:false
+    };
+  });
 }
 
-function fontSizeFor(title){
-    if (title.length > 14) return 10;
-    if (title.length > 9) return 11;
-    return 12;
-}
+function fontSizeFor(t){ return t.length>14?10:t.length>9?11:12; }
 
 function drawBubble(b){
-    const r = b.radius + Math.sin(b.wobble)*1.6;
-    const cx = b.x, cy = b.y;
-    ctx.save();
-
-    // soft drop shadow under bubble (subtle depth)
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.fillStyle = "rgba(255,255,255,0.06)";
-    ctx.fill();
-
-    // glassy radial body — pale cyan-white like the reference image
-    let body = ctx.createRadialGradient(cx-r*0.3, cy-r*0.35, r*0.1, cx, cy, r);
-    body.addColorStop(0,   "rgba(255,255,255,0.55)");
-    body.addColorStop(0.35,"rgba(220,245,250,0.28)");
-    body.addColorStop(0.7, "rgba(180,225,240,0.16)");
-    body.addColorStop(1,   "rgba(160,215,235,0.10)");
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.fillStyle = body;
-    ctx.fill();
-
-    // rim
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.strokeStyle = "rgba(255,255,255,0.65)";
-    ctx.lineWidth = 1.4;
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r-1.5, 0, Math.PI*2);
-    ctx.strokeStyle = "rgba(255,255,255,0.25)";
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    // big top-left specular highlight
-    let hl = ctx.createRadialGradient(cx-r*0.35,cy-r*0.4,0, cx-r*0.35,cy-r*0.4, r*0.5);
-    hl.addColorStop(0,   "rgba(255,255,255,0.85)");
-    hl.addColorStop(0.5, "rgba(255,255,255,0.3)");
-    hl.addColorStop(1,   "rgba(255,255,255,0)");
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.fillStyle = hl;
-    ctx.fill();
-
-    // small bottom-right counter highlight
-    let hl2 = ctx.createRadialGradient(cx+r*0.35,cy+r*0.4,0, cx+r*0.35,cy+r*0.4, r*0.25);
-    hl2.addColorStop(0, "rgba(255,255,255,0.35)");
-    hl2.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.fillStyle = hl2;
-    ctx.fill();
-
-    // label — white, bold-ish, like reference
-    ctx.fillStyle = "#ffffff";
-    ctx.font = `600 ${fontSizeFor(b.title)}px Inter, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.shadowColor = "rgba(10,40,60,0.45)";
-    ctx.shadowBlur = 4;
-
-    const words = b.title.split(" ");
-    if (words.length > 1 && b.title.length > 10) {
-        ctx.fillText(words[0], cx, cy-7);
-        ctx.fillText(words.slice(1).join(" "), cx, cy+7);
-    } else {
-        ctx.fillText(b.title, cx, cy);
-    }
-    ctx.shadowBlur = 0;
-    ctx.restore();
+  const r=b.radius+Math.sin(b.wobble)*1.6, cx=b.x, cy=b.y;
+  ctx.save();
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle="rgba(255,255,255,0.06)"; ctx.fill();
+  let body=ctx.createRadialGradient(cx-r*.3,cy-r*.35,r*.1,cx,cy,r);
+  body.addColorStop(0,"rgba(255,255,255,0.55)"); body.addColorStop(.35,"rgba(220,245,250,0.28)");
+  body.addColorStop(.7,"rgba(180,225,240,0.16)"); body.addColorStop(1,"rgba(160,215,235,0.10)");
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=body; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.strokeStyle="rgba(255,255,255,0.65)"; ctx.lineWidth=1.4; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,r-1.5,0,Math.PI*2); ctx.strokeStyle="rgba(255,255,255,0.25)"; ctx.lineWidth=1; ctx.stroke();
+  let hl=ctx.createRadialGradient(cx-r*.35,cy-r*.4,0,cx-r*.35,cy-r*.4,r*.5);
+  hl.addColorStop(0,"rgba(255,255,255,0.85)"); hl.addColorStop(.5,"rgba(255,255,255,0.3)"); hl.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=hl; ctx.fill();
+  let hl2=ctx.createRadialGradient(cx+r*.35,cy+r*.4,0,cx+r*.35,cy+r*.4,r*.25);
+  hl2.addColorStop(0,"rgba(255,255,255,0.35)"); hl2.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=hl2; ctx.fill();
+  ctx.fillStyle="#ffffff"; ctx.font=`600 ${fontSizeFor(b.title)}px Inter,sans-serif`;
+  ctx.textAlign="center"; ctx.textBaseline="middle";
+  ctx.shadowColor="rgba(10,40,60,0.45)"; ctx.shadowBlur=4;
+  const words=b.title.split(" ");
+  if(words.length>1&&b.title.length>10){ ctx.fillText(words[0],cx,cy-7); ctx.fillText(words.slice(1).join(" "),cx,cy+7); }
+  else { ctx.fillText(b.title,cx,cy); }
+  ctx.shadowBlur=0; ctx.restore();
 }
 
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    bubbles.forEach(b=>{
-        b.wobble += b.wobbleSpeed;
-        b.x += b.vx + Math.sin(b.wobble*0.5)*0.15;
-        b.y += b.vy;
-
-        if (b.x-b.radius<0){ b.x=b.radius; b.vx=Math.abs(b.vx); }
-        if (b.x+b.radius>canvas.width){ b.x=canvas.width-b.radius; b.vx=-Math.abs(b.vx); }
-        if (b.y-b.radius<0){ b.y=b.radius; b.vy=Math.abs(b.vy); }
-        if (b.y+b.radius>canvas.height){ b.y=canvas.height-b.radius; b.vy=-Math.abs(b.vy); }
-        drawBubble(b);
-    });
-    animId = requestAnimationFrame(animate);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  bubbles.forEach(b=>{
+    b.wobble+=b.wobbleSpeed; b.x+=b.vx+Math.sin(b.wobble*.5)*.15; b.y+=b.vy;
+    if(b.x-b.radius<0){b.x=b.radius;b.vx=Math.abs(b.vx);}
+    if(b.x+b.radius>canvas.width){b.x=canvas.width-b.radius;b.vx=-Math.abs(b.vx);}
+    if(b.y-b.radius<0){b.y=b.radius;b.vy=Math.abs(b.vy);}
+    if(b.y+b.radius>canvas.height){b.y=canvas.height-b.radius;b.vy=-Math.abs(b.vy);}
+    drawBubble(b);
+  });
+  animId=requestAnimationFrame(animate);
 }
 
-function popBubble(idx, onDone){
-    const b = bubbles[idx], cx=b.x, cy=b.y, r=b.radius;
-    bubbles.splice(idx,1);
-    let frame=0; const MAX=22;
-    function pf(){
-        if (frame>MAX){
-            if (onDone) onDone();
-            if (bubbles.length===0){
-                canvas.style.display="none";
-                document.querySelector(".bubble-hint").style.display="none";
-                thankyouBox.classList.add("visible");
-            }
-            return;
-        }
-        const t = frame/MAX;
-
-        if (t < 0.25){
-            // quick squash/flash right as it pops
-            const ft = t/0.25;
-            ctx.save();
-            ctx.globalAlpha = 0.9*(1-ft);
-            ctx.beginPath();
-            ctx.arc(cx, cy, r*(1+ft*0.25), 0, Math.PI*2);
-            ctx.fillStyle = "rgba(255,255,255,0.5)";
-            ctx.fill();
-            ctx.restore();
-        } else {
-            const bt = (t-0.25)/0.75;
-            ctx.save();
-            ctx.globalAlpha = (1-bt)*0.7;
-            ctx.beginPath();
-            ctx.arc(cx, cy, r+bt*26, 0, Math.PI*2);
-            ctx.strokeStyle = "rgba(255,255,255,0.6)";
-            ctx.lineWidth = 2*(1-bt);
-            ctx.stroke();
-            for (let d=0; d<9; d++){
-                const a = (d/9)*Math.PI*2 + bt*1.2;
-                const dist = r*0.5 + bt*38;
-                ctx.beginPath();
-                ctx.arc(cx+Math.cos(a)*dist, cy+Math.sin(a)*dist - bt*14, 2.4*(1-bt), 0, Math.PI*2);
-                ctx.fillStyle = "rgba(220,245,250,0.75)";
-                ctx.fill();
-            }
-            ctx.restore();
-        }
-
-        frame++;
-        requestAnimationFrame(pf);
+function popBubble(idx,onDone){
+  const b=bubbles[idx],cx=b.x,cy=b.y,r=b.radius;
+  bubbles.splice(idx,1);
+  let frame=0;const MAX=22;
+  function pf(){
+    if(frame>MAX){
+      if(onDone)onDone();
+      if(bubbles.length===0){canvas.style.display="none";const h=document.querySelector(".bubble-hint");if(h)h.style.display="none";thankyouBox.classList.add("visible");}
+      return;
     }
-    pf();
+    const t=frame/MAX;
+    if(t<.25){const ft=t/.25;ctx.save();ctx.globalAlpha=.9*(1-ft);ctx.beginPath();ctx.arc(cx,cy,r*(1+ft*.25),0,Math.PI*2);ctx.fillStyle="rgba(255,255,255,0.5)";ctx.fill();ctx.restore();}
+    else{const bt=(t-.25)/.75;ctx.save();ctx.globalAlpha=(1-bt)*.7;ctx.beginPath();ctx.arc(cx,cy,r+bt*26,0,Math.PI*2);ctx.strokeStyle="rgba(255,255,255,0.6)";ctx.lineWidth=2*(1-bt);ctx.stroke();for(let d=0;d<9;d++){const a=(d/9)*Math.PI*2+bt*1.2,dist=r*.5+bt*38;ctx.beginPath();ctx.arc(cx+Math.cos(a)*dist,cy+Math.sin(a)*dist-bt*14,2.4*(1-bt),0,Math.PI*2);ctx.fillStyle="rgba(220,245,250,0.75)";ctx.fill();}ctx.restore();}
+    frame++;requestAnimationFrame(pf);
+  }
+  pf();
 }
 
-canvas.addEventListener("click", e=>{
-    const rect = canvas.getBoundingClientRect();
-    const sx = canvas.width/rect.width, sy = canvas.height/rect.height;
-    const mx = (e.clientX-rect.left)*sx, my = (e.clientY-rect.top)*sy;
-    for (let i=bubbles.length-1; i>=0; i--){
-        if (Math.hypot(bubbles[i].x-mx, bubbles[i].y-my) < bubbles[i].radius){
-            const title = bubbles[i].title;
-            const desc  = bubbles[i].desc;
-            popBubble(i, ()=>{
-                document.getElementById("modalTitle").textContent = title;
-                document.getElementById("modalDesc").textContent  = desc;
-                modal.classList.add("visible");
-            });
-            break;
-        }
+canvas.addEventListener("click",e=>{
+  const rect=canvas.getBoundingClientRect(),sx=canvas.width/rect.width,sy=canvas.height/rect.height;
+  const mx=(e.clientX-rect.left)*sx,my=(e.clientY-rect.top)*sy;
+  for(let i=bubbles.length-1;i>=0;i--){
+    if(Math.hypot(bubbles[i].x-mx,bubbles[i].y-my)<bubbles[i].radius){
+      const title=bubbles[i].title,desc=bubbles[i].desc;
+      popBubble(i,()=>{document.getElementById("modalTitle").textContent=title;document.getElementById("modalDesc").textContent=desc;modal.classList.add("visible");});
+      break;
     }
+  }
 });
-document.getElementById("modalClose").addEventListener("click", ()=>modal.classList.remove("visible"));
-modal.addEventListener("click", e=>{ if (e.target===modal) modal.classList.remove("visible"); });
+document.getElementById("modalClose").addEventListener("click",()=>modal.classList.remove("visible"));
+modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("visible");});
 
-/* ───────── BACKGROUND FISH (decorative, non-interactive) ───────── */
-const FISH_COLORS = [
-    ["#f4a23c","#d97f1f"], ["#5fb8e0","#2f8fc0"], ["#e8556b","#c43a52"],
-    ["#f7d04a","#dba91f"], ["#8a6fd8","#6a4fc0"], ["#4fd0c0","#2caa9a"],
-    ["#f4895f","#d96638"]
-];
-
-function drawFish(x, y, size, dir, colorPair, finPhase){
-    fctx.save();
-    fctx.translate(x, y);
-    fctx.scale(dir, 1);
-    fctx.globalAlpha = 0.32;
-
-    // body
-    let grad = fctx.createLinearGradient(-size, 0, size, 0);
-    grad.addColorStop(0, colorPair[1]);
-    grad.addColorStop(1, colorPair[0]);
-    fctx.beginPath();
-    fctx.ellipse(0, 0, size, size*0.55, 0, 0, Math.PI*2);
-    fctx.fillStyle = grad;
-    fctx.fill();
-
-    // tail (animated)
-    const tailWag = Math.sin(finPhase)*0.3;
-    fctx.beginPath();
-    fctx.moveTo(-size*0.9, 0);
-    fctx.lineTo(-size*1.5, -size*0.45 + tailWag*size*0.3);
-    fctx.lineTo(-size*1.5, size*0.45 + tailWag*size*0.3);
-    fctx.closePath();
-    fctx.fillStyle = colorPair[1];
-    fctx.fill();
-
-    // dorsal fin
-    fctx.beginPath();
-    fctx.moveTo(-size*0.1, -size*0.5);
-    fctx.lineTo(size*0.15, -size*0.85);
-    fctx.lineTo(size*0.35, -size*0.45);
-    fctx.closePath();
-    fctx.fillStyle = colorPair[1];
-    fctx.fill();
-
-    // eye
-    fctx.beginPath();
-    fctx.arc(size*0.55, -size*0.08, size*0.09, 0, Math.PI*2);
-    fctx.fillStyle = "#ffffff";
-    fctx.fill();
-    fctx.beginPath();
-    fctx.arc(size*0.58, -size*0.08, size*0.045, 0, Math.PI*2);
-    fctx.fillStyle = "#13202a";
-    fctx.fill();
-
-    fctx.restore();
+/* FISH */
+const FISH_COLORS=[["#f4a23c","#d97f1f"],["#5fb8e0","#2f8fc0"],["#e8556b","#c43a52"],["#f7d04a","#dba91f"],["#8a6fd8","#6a4fc0"],["#4fd0c0","#2caa9a"],["#f4895f","#d96638"]];
+function drawFish(x,y,size,dir,cp,fp){
+  fctx.save();fctx.translate(x,y);fctx.scale(dir,1);fctx.globalAlpha=0.32;
+  let g=fctx.createLinearGradient(-size,0,size,0);g.addColorStop(0,cp[1]);g.addColorStop(1,cp[0]);
+  fctx.beginPath();fctx.ellipse(0,0,size,size*.55,0,0,Math.PI*2);fctx.fillStyle=g;fctx.fill();
+  const tw=Math.sin(fp)*.3;
+  fctx.beginPath();fctx.moveTo(-size*.9,0);fctx.lineTo(-size*1.5,-size*.45+tw*size*.3);fctx.lineTo(-size*1.5,size*.45+tw*size*.3);fctx.closePath();fctx.fillStyle=cp[1];fctx.fill();
+  fctx.beginPath();fctx.moveTo(-size*.1,-size*.5);fctx.lineTo(size*.15,-size*.85);fctx.lineTo(size*.35,-size*.45);fctx.closePath();fctx.fillStyle=cp[1];fctx.fill();
+  fctx.beginPath();fctx.arc(size*.55,-size*.08,size*.09,0,Math.PI*2);fctx.fillStyle="#fff";fctx.fill();
+  fctx.beginPath();fctx.arc(size*.58,-size*.08,size*.045,0,Math.PI*2);fctx.fillStyle="#13202a";fctx.fill();
+  fctx.restore();
 }
-
-let fishes = [];
+let fishes=[];
 function initFish(){
-    fishes = [];
-    const count = 6;
-    for (let i=0; i<count; i++){
-        fishes.push({
-            x: Math.random()*fishCanvas.width,
-            y: Math.random()*fishCanvas.height*0.85 + fishCanvas.height*0.05,
-            size: 9 + Math.random()*8,
-            speed: 0.25 + Math.random()*0.35,
-            dir: Math.random() > 0.5 ? 1 : -1,
-            colorPair: FISH_COLORS[i % FISH_COLORS.length],
-            finPhase: Math.random()*Math.PI*2,
-            bobPhase: Math.random()*Math.PI*2
-        });
-    }
+  fishes=[];
+  for(let i=0;i<6;i++) fishes.push({x:Math.random()*fishCanvas.width,y:Math.random()*fishCanvas.height*.85+fishCanvas.height*.05,size:9+Math.random()*8,speed:.25+Math.random()*.35,dir:Math.random()>.5?1:-1,colorPair:FISH_COLORS[i%FISH_COLORS.length],finPhase:Math.random()*Math.PI*2,bobPhase:Math.random()*Math.PI*2});
 }
-
 function animateFish(){
-    fctx.clearRect(0,0,fishCanvas.width,fishCanvas.height);
-    fishes.forEach(f=>{
-        f.x += f.speed * f.dir;
-        f.finPhase += 0.12;
-        f.bobPhase += 0.04;
-        const by = f.y + Math.sin(f.bobPhase)*4;
-
-        if (f.dir>0 && f.x > fishCanvas.width + f.size*1.6){
-            f.x = -f.size*1.6;
-            f.y = Math.random()*fishCanvas.height*0.85 + fishCanvas.height*0.05;
-        }
-        if (f.dir<0 && f.x < -f.size*1.6){
-            f.x = fishCanvas.width + f.size*1.6;
-            f.y = Math.random()*fishCanvas.height*0.85 + fishCanvas.height*0.05;
-        }
-        drawFish(f.x, by, f.size, f.dir, f.colorPair, f.finPhase);
-    });
-    fishAnimId = requestAnimationFrame(animateFish);
+  fctx.clearRect(0,0,fishCanvas.width,fishCanvas.height);
+  fishes.forEach(f=>{
+    f.x+=f.speed*f.dir;f.finPhase+=.12;f.bobPhase+=.04;
+    const by=f.y+Math.sin(f.bobPhase)*4;
+    if(f.dir>0&&f.x>fishCanvas.width+f.size*1.6){f.x=-f.size*1.6;f.y=Math.random()*fishCanvas.height*.85+fishCanvas.height*.05;}
+    if(f.dir<0&&f.x<-f.size*1.6){f.x=fishCanvas.width+f.size*1.6;f.y=Math.random()*fishCanvas.height*.85+fishCanvas.height*.05;}
+    drawFish(f.x,by,f.size,f.dir,f.colorPair,f.finPhase);
+  });
+  fishAnimId=requestAnimationFrame(animateFish);
 }
 
-window.addEventListener("resize", ()=>{
-    cancelAnimationFrame(animId);
-    cancelAnimationFrame(fishAnimId);
-    initBubbles();
-    initFish();
-    animate();
-    animateFish();
-});
+window.addEventListener("resize",()=>{cancelAnimationFrame(animId);cancelAnimationFrame(fishAnimId);initBubbles();initFish();animate();animateFish();});
+document.getElementById("resetBubbles").addEventListener("click",initBubbles);
 
-document.getElementById("resetBubbles").addEventListener("click", ()=>{
-    initBubbles();
-});
+initBubbles();initFish();animate();animateFish();
 
-initBubbles();
-initFish();
-animate();
-animateFish();
+/* NAV MOBILE */
+const toggle=document.getElementById('menuToggle');
+const menu=document.getElementById('navMenu');
+toggle.addEventListener('click',()=>menu.classList.toggle('active'));
+menu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>menu.classList.remove('active')));
 </script>
-
-<script>
-    const toggle = document.getElementById('menuToggle');
-    const menu = document.getElementById('navMenu');
-
-    toggle.addEventListener('click', () => {
-        menu.classList.toggle('active');
-    });
-
-    // Zavření menu po kliknutí na odkaz
-    menu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.remove('active');
-        });
-    });
-</script>
-
 </body>
 </html>
