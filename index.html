@@ -26,7 +26,7 @@
             font-family: "Inter", sans-serif;
             background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
+            min-height: 100vh;<
             position: relative;
             overflow-x: hidden;
         }
@@ -443,9 +443,44 @@
             .cert-grid { grid-template-columns: 1fr; }
             .skills-row { grid-template-columns: 1fr; gap: 28px; }
         }
+/* Plynulé rolování pro celou stránku */
+html { scroll-behavior: smooth; }
+
+/* Sticky navigace */
+nav {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 36px;
+    border-bottom: 1px solid var(--line);
+    z-index: 1000;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+nav a { 
+    text-decoration: none; 
+    color: var(--text); 
+    font-size: 11px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 0.15em; 
+}
+nav a:hover { color: var(--cz-red); }
+/* Nastavíme odsazení pro všechny sekce, které mají ID */
+section, header {
+    scroll-margin-top: 80px; /* Uprav hodnotu podle skutečné výšky tvého menu */
+}
     </style>
 </head>
 <body>
+<nav>
+    <a href="#about">Kryštof</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#about-me">About Me</a>
+</nav>
 
 <!-- CZECH ICON WATERMARK using uploaded icon set, unmodified -->
 <div class="bg-watermark">
@@ -462,7 +497,8 @@
 <div class="flag-stripe"><span></span><span></span><span></span></div>
 
 <div class="container">
-
+<section id="about">
+   
     <!-- HEADER -->
     <header>
         <div class="header-text">
@@ -485,7 +521,8 @@
         <p class="section-label">About</p>
         <p class="summary-text">A professional with a university background in IT Project Management, currently working as a System &amp; Process Advisor for REWE International in Vienna. Responsible for the continuous improvement of systems and processes across BILLA, PENNY, and BIPA stores in the CEE region. With study and work experience across four countries, I bring a strong cross-cultural perspective to international teams.</p>
     </section>
-
+</section>
+<section id="experience">
     <!-- EXPERIENCE -->
     <section>
         <p class="section-label">Experience</p>
@@ -558,7 +595,8 @@
 
         </div>
     </section>
-
+</section>
+<section id="education">
     <!-- EDUCATION -->
 <section>
         <p class="section-label">Education</p>
@@ -626,7 +664,7 @@
 
         </div>
     </section>
-
+</section>
     <!-- SKILLS & LANGUAGES -->
     <section>
         <p class="section-label">Skills &amp; Languages</p>
@@ -653,7 +691,7 @@
             </div>
         </div>
     </section>
-
+<section id="certifications">
     <!-- CERTIFICATIONS -->
     <section>
         <p class="section-label">Certifications</p>
@@ -684,7 +722,8 @@
             </a>
         </div>
     </section>
-
+    </section>
+<section id="about-me">
     <!-- SOFT SKILLS BUBBLES -->
     <section>
         <p class="section-label">About Me</p>
@@ -719,7 +758,7 @@
             </div>
         </div>
     </section>
-
+    </section>
     <footer>
         <span>© 2026 Kryštof Benka</span>
         <span>Retail Systems &amp; Process Advisor · CEE</span>
