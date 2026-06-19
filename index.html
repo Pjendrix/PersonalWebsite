@@ -471,10 +471,28 @@ nav a:hover { color: var(--cz-red); }
 section, header {
     scroll-margin-top: 80px; /* Uprav hodnotu podle skutečné výšky tvého menu */
 }
+.menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; padding: 10px; }
+
+@media (max-width: 768px) {
+    .menu-toggle { display: block; } /* Zobrazí se jen na mobilu */
+    
+    #navMenu {
+        display: none; /* Výchozí stav na mobilu: skryté */
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background: #fff;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+    }
+    
+    #navMenu.active { display: flex; } /* Třída, kterou přidáme JSem */
+}
     </style>
 </head>
 <body>
-<nav>
+<button class="menu-toggle" id="menuToggle">☰</button>
+<nav id="navMenu">
     <a href="#about">Kryštof</a>
     <a href="#experience">Experience</a>
     <a href="#education">Education</a>
@@ -1110,5 +1128,22 @@ initFish();
 animate();
 animateFish();
 </script>
+
+<script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('navMenu');
+
+    toggle.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+
+    // Zavření menu po kliknutí na odkaz
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('active');
+        });
+    });
+</script>
+
 </body>
 </html>
