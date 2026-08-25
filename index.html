@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kryštof Benka | Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="asset_1.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="asset_2.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="asset_3.png">
-    <link rel="apple-touch-icon" href="asset_4.png">
+    <meta name="description" content="Kryštof Benka — Retail Systems &amp; Process Advisor CEE at REWE International AG, Vienna. IT project management background, experience across four countries.">
+    <link rel="canonical" href="https://krystofbenka.cz/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kryštof Benka | Portfolio">
+    <meta property="og:description" content="Retail Systems &amp; Process Advisor CEE at REWE International AG, Vienna.">
+    <meta property="og:url" content="https://krystofbenka.cz/">
+    <meta property="og:image" content="https://krystofbenka.cz/assets/img/avatar.webp">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#8b3030">
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,13 +29,13 @@
             --text:    #1c1c1c;
             --muted:   #6a6560;
             --line:    #e0ddd8;
-        }<
+        }
 
         body {
             font-family: "Inter", sans-serif;
             background: var(--bg);
             color: var(--text);
-            min-height: 100vh;<
+            min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
@@ -42,6 +51,22 @@
             position: absolute;
             opacity: 0.16;
             filter: grayscale(1);
+        }
+
+        .skip-link {
+            position: absolute; left: -9999px; top: 0; z-index: 999;
+            background: var(--cz-blue); color: #fff; padding: 10px 18px;
+            font-size: 13px; text-decoration: none;
+        }
+        .skip-link:focus { left: 0; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
         }
 
         /* ── FLAG STRIPE ── */
@@ -118,6 +143,7 @@
 
         /* ── SECTION ── */
         section { margin-bottom: 68px; }
+        h2.section-label { font-size: inherit; font-weight: inherit; }
         .section-label {
             font-size: 10px;
             font-weight: 600;
@@ -510,8 +536,9 @@ section, header {
     </style>
 </head>
 <body>
-<button class="menu-toggle" id="menuToggle">☰</button>
-<nav id="navMenu">
+<a class="skip-link" href="#about">Skip to content</a>
+<button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">☰</button>
+<nav id="navMenu" aria-label="Main navigation">
     <a href="#about">Kryštof</a>
     <a href="#experience">Experience</a>
     <a href="#education">Education</a>
@@ -520,15 +547,15 @@ section, header {
 </nav>
 
 <!-- CZECH ICON WATERMARK using uploaded icon set, unmodified -->
-<div class="bg-watermark">
-    <img src="asset_5.png"  style="width:150px; top:6%;  left:4%;"  alt="">
-    <img src="asset_6.png"    style="width:130px; top:42%; left:2%;" alt="">
-    <img src="asset_7.png"  style="width:160px; top:62%; left:7%;" alt="">
-    <img src="asset_8.png" style="width:220px; top:4%;  left:78%;" alt="">
-    <img src="asset_9.png"    style="width:230px; top:68%; left:62%;" alt="">
-    <img src="asset_10.png"     style="width:110px; top:8%;  left:46%;" alt="">
-    <img src="asset_11.png" style="width:150px; top:78%; left:30%;" alt="">
-    <img src="asset_12.png"    style="width:160px; top:38%; left:46%;" alt="">
+<div class="bg-watermark" aria-hidden="true">
+    <img src="assets/watermarks/spa-colonnade.webp" title="Spa colonnade" loading="lazy" decoding="async" aria-hidden="true"  style="width:150px; top:6%;  left:4%;"  alt="">
+    <img src="assets/watermarks/linden-leaves.webp" title="Linden leaves" loading="lazy" decoding="async" aria-hidden="true"    style="width:130px; top:42%; left:2%;" alt="">
+    <img src="assets/watermarks/dancing-house.webp" title="Dancing House, Prague" loading="lazy" decoding="async" aria-hidden="true"  style="width:160px; top:62%; left:7%;" alt="">
+    <img src="assets/watermarks/czech-map.webp" title="Map of the Czech Republic" loading="lazy" decoding="async" aria-hidden="true" style="width:220px; top:4%;  left:78%;" alt="">
+    <img src="assets/watermarks/charles-bridge.webp" title="Charles Bridge" loading="lazy" decoding="async" aria-hidden="true"    style="width:230px; top:68%; left:62%;" alt="">
+    <img src="assets/watermarks/powder-tower.webp" title="Powder Tower" loading="lazy" decoding="async" aria-hidden="true"     style="width:110px; top:8%;  left:46%;" alt="">
+    <img src="assets/watermarks/tyn-church.webp" title="Church of Our Lady before Tyn" loading="lazy" decoding="async" aria-hidden="true" style="width:150px; top:78%; left:30%;" alt="">
+    <img src="assets/watermarks/czech-lion-crest.webp" title="Czech lion crest" loading="lazy" decoding="async" aria-hidden="true"    style="width:160px; top:38%; left:46%;" alt="">
 </div>
 
 <div class="flag-stripe"><span></span><span></span><span></span></div>
@@ -548,26 +575,26 @@ section, header {
             </div>
         </div>
         <div class="avatar-wrap">
-            <img src="asset_13.png" alt="Kryštof Benka" style="width:190px;height:190px;object-fit:contain;border-radius:12px;">
+            <img src="assets/img/avatar.webp" alt="Portrait of Kryštof Benka" width="190" height="190" style="width:190px;height:190px;object-fit:contain;border-radius:12px;">
             <p class="avatar-badge">Retail &amp; IT Advisor</p>
         </div>
     </header>
 
     <!-- ABOUT -->
     <section>
-        <p class="section-label">About</p>
+        <h2 class="section-label">About</h2>
         <p class="summary-text">A professional with a university background in IT Project Management, currently working as a System &amp; Process Advisor for REWE International in Vienna. Responsible for the continuous improvement of systems and processes across BILLA, PENNY, and BIPA stores in the CEE region. With study and work experience across four countries, I bring a strong cross-cultural perspective to international teams.</p>
     </section>
 </section>
 <section id="experience">
     <!-- EXPERIENCE -->
     <section>
-        <p class="section-label">Experience</p>
+        <h2 class="section-label">Experience</h2>
         <div class="timeline">
 
             <div class="tl-item">
                 <div class="tl-left">
-                    <img class="tl-logo" src="asset_14.png" alt="REWE Group">
+                    <img class="tl-logo" loading="lazy" decoding="async" src="assets/logos/rewe-group.webp" alt="REWE Group">
                     <span class="tl-period">Jan 2025 –<br>Present</span>
                 </div>
                 <div class="tl-right">
@@ -580,7 +607,7 @@ section, header {
 
             <div class="tl-item">
                 <div class="tl-left">
-                    <img class="tl-logo" src="asset_15.png" alt="KCT Data">
+                    <img class="tl-logo" loading="lazy" decoding="async" src="assets/logos/kct-data.webp" alt="KCT Data">
                     <span class="tl-period">Feb 2019 –<br>Jan 2025</span>
                 </div>
                 <div class="tl-right">
@@ -593,7 +620,7 @@ section, header {
 
             <div class="tl-item">
                 <div class="tl-left">
-                    <img class="tl-logo" src="asset_16.png" alt="Škoda Auto">
+                    <img class="tl-logo" loading="lazy" decoding="async" src="assets/logos/skoda-auto.webp" alt="Škoda Auto">
                     <span class="tl-period">May 2021 –<br>Dec 2024</span>
                 </div>
                 <div class="tl-right">
@@ -606,7 +633,7 @@ section, header {
 
             <div class="tl-item">
                 <div class="tl-left">
-                    <img class="tl-logo" src="asset_17.png" alt="Česká televize">
+                    <img class="tl-logo" loading="lazy" decoding="async" src="assets/logos/ceska-televize.webp" alt="Česká televize">
                     <span class="tl-period">Nov 2015 –<br>Mar 2022</span>
                 </div>
                 <div class="tl-right">
@@ -619,7 +646,7 @@ section, header {
 
             <div class="tl-item">
                 <div class="tl-left">
-                    <img class="tl-logo" src="asset_18.png" alt="EF Education First" style="max-height:34px;max-width:80px;">
+                    <img class="tl-logo" loading="lazy" decoding="async" src="assets/logos/ef-education-first.webp" alt="EF Education First" style="max-height:34px;max-width:80px;">
                     <span class="tl-period">Jul 2018 –<br>Oct 2018</span>
                 </div>
                 <div class="tl-right">
@@ -636,12 +663,12 @@ section, header {
 <section id="education">
     <!-- EDUCATION -->
 <section>
-        <p class="section-label">Education</p>
+        <h2 class="section-label">Education</h2>
         <div class="edu-grid">
 
             <div class="edu-item">
                 <div class="edu-left">
-                    <img class="edu-logo" src="asset_19.jpg" alt="CTU Prague" style="border-radius:4px;">
+                    <img class="edu-logo" loading="lazy" decoding="async" src="assets/logos/ctu-prague.webp" alt="CTU Prague" style="border-radius:4px;">
                     <span class="edu-period">2017 – 2019</span>
                 </div>
                 <div style="overflow: hidden;">
@@ -653,7 +680,7 @@ section, header {
 
             <div class="edu-item">
                 <div class="edu-left">
-                    <img class="edu-logo" src="asset_20.jpg" alt="CTU Prague" style="border-radius:4px;">
+                    <img class="edu-logo" loading="lazy" decoding="async" src="assets/logos/ctu-prague.webp" alt="CTU Prague" style="border-radius:4px;">
                     <span class="edu-period">2014 – 2017</span>
                 </div>
                 <div style="overflow: hidden;">
@@ -665,7 +692,7 @@ section, header {
 
             <div class="edu-item">
                 <div class="edu-left">
-                    <img class="edu-logo" src="asset_21.jpg" alt="NSYSU" style="border-radius:4px;">
+                    <img class="edu-logo" loading="lazy" decoding="async" src="assets/logos/nsysu-taiwan.webp" alt="NSYSU" style="border-radius:4px;">
                     <span class="edu-period">2018</span>
                 </div>
                 <div style="overflow: hidden;">
@@ -677,7 +704,7 @@ section, header {
 
             <div class="edu-item">
                 <div class="edu-left">
-                    <img class="edu-logo" src="asset_22.jpg" alt="VILNIUS TECH" style="border-radius:4px;">
+                    <img class="edu-logo" loading="lazy" decoding="async" src="assets/logos/vilnius-tech.webp" alt="VILNIUS TECH" style="border-radius:4px;">
                     <span class="edu-period">2016 – 2017</span>
                 </div>
                 <div style="overflow: hidden;">
@@ -689,7 +716,7 @@ section, header {
 
             <div class="edu-item">
                 <div class="edu-left">
-                    <img class="edu-logo" src="asset_23.png" alt="Victor High School" style="border-radius:4px;">
+                    <img class="edu-logo" loading="lazy" decoding="async" src="assets/logos/victor-high-school.webp" alt="Victor High School" style="border-radius:4px;">
                     <span class="edu-period">2011 – 2012</span>
                 </div>
                 <div style="overflow: hidden;">
@@ -704,7 +731,7 @@ section, header {
 </section>
     <!-- SKILLS & LANGUAGES -->
     <section>
-        <p class="section-label">Skills &amp; Languages</p>
+        <h2 class="section-label">Skills &amp; Languages</h2>
         <div class="skills-row">
             <div>
                 <div class="skill-pills">
@@ -731,10 +758,10 @@ section, header {
 <section id="certifications">
     <!-- CERTIFICATIONS -->
     <section>
-        <p class="section-label">Certifications</p>
+        <h2 class="section-label">Certifications</h2>
         <div class="cert-grid">
             <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/PN3NU42DT5YH" class="cert-card" target="_blank" rel="noopener">
-                <img class="cert-logo" src="asset_24.bin" alt="Google">
+                <img class="cert-logo" loading="lazy" decoding="async" src="assets/logos/google-certificate.webp" alt="Google">
                 <div class="cert-info">
                     <div class="cert-name">Google Data Analytics</div>
                     <div class="cert-provider">Google · Coursera</div>
@@ -742,7 +769,7 @@ section, header {
                 <span class="cert-arrow">↗</span>
             </a>
             <a href="https://www.coursera.org/account/accomplishments/specialization/4I9G1SJDLUGM" class="cert-card" target="_blank" rel="noopener">
-                <img class="cert-logo" src="asset_25.bin" alt="Google">
+                <img class="cert-logo" loading="lazy" decoding="async" src="assets/logos/google-certificate.webp" alt="Google">
                 <div class="cert-info">
                     <div class="cert-name">Google AI Expert</div>
                     <div class="cert-provider">Google · Coursera</div>
@@ -763,10 +790,10 @@ section, header {
 <section id="about-me">
     <!-- SOFT SKILLS BUBBLES -->
     <section>
-        <p class="section-label">About Me</p>
+        <h2 class="section-label">About Me</h2>
         <p class="bubble-hint">Click a bubble to learn more</p>
         <div class="ocean-scene" id="oceanScene">
-            <canvas class="fish-canvas" id="fishCanvas"></canvas>
+            <canvas class="fish-canvas" id="fishCanvas" aria-hidden="true"></canvas>
             <div class="ocean-rock" style="left:2%; width:70px; height:34px;"></div>
             <div class="ocean-rock" style="left:12%; width:46px; height:24px;"></div>
             <div class="ocean-rock" style="right:4%; width:80px; height:38px;"></div>
@@ -784,7 +811,7 @@ section, header {
                 <svg viewBox="0 0 20 100" xmlns="http://www.w3.org/2000/svg"><path d="M10,100 Q17,82 9,62 Q3,44 12,22 Q15,11 9,0" stroke="#4ea05f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
             </div>
             <div class="ocean-floor"></div>
-            <canvas class="ocean-canvas" id="bubbleCanvas"></canvas>
+            <canvas class="ocean-canvas" id="bubbleCanvas" role="img" aria-label="Interactive skills aquarium. A text list of skills follows below."></canvas>
             <div class="thankyou-box" id="thankyouBox">
                 <div class="thankyou-inner">
                     <div class="thankyou-bubble-icon"></div>
@@ -796,19 +823,20 @@ section, header {
         </div>
     </section>
     </section>
-<!-- HTML - Contact </div> <!-- /container -->
+<!-- CONTACT -->
 <section id="contact">
     <section>
-        <p class="section-label">Contact</p>
-        <div class="contact-form" id="contactForm">
+        <h2 class="section-label">Contact</h2>
+        <form class="contact-form" id="contactForm" novalidate>
             <input type="text" id="cf_name" placeholder="Name" required>
             <input type="email" id="cf_email" placeholder="Email" required>
             <textarea class="full" id="cf_msg" placeholder="Message" required></textarea>
-            <div class="full" style="display:flex; align-items:center; gap:16<px; flex-wrap:wrap;">
-                <button class="contact-submit" id="cf_submit">Send Message</button>
-                <span class="contact-status" id="cf_status"></span>
+            <div class="full" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                <button type="submit" class="contact-submit" id="cf_submit">Send Message</button>
+                <span class="contact-status" id="cf_status" role="status" aria-live="polite"></span>
             </div>
-        </div>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;" id="cf_hp">
+        </form>
     </section>
 </section>
     <footer>
@@ -820,7 +848,7 @@ section, header {
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal">
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-box">
         <div class="modal-accent"></div>
         <h3 class="modal-title" id="modalTitle"></h3>
@@ -1164,12 +1192,15 @@ animateFish();
 </script>
 
 <script>
-document.getElementById('cf_submit').addEventListener('click', async () => {
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
     const name  = document.getElementById('cf_name').value.trim();
     const email = document.getElementById('cf_email').value.trim();
     const msg   = document.getElementById('cf_msg').value.trim();
     const status = document.getElementById('cf_status');
+    if (document.getElementById('cf_hp').value) { return; }
     if (!name || !email || !msg) { status.textContent = '⚠ Please fill in all fields.'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = '⚠ Please enter a valid email address.'; return; }
     document.getElementById('cf_submit').disabled = true;
     status.textContent = '...';
     try {
@@ -1195,14 +1226,34 @@ document.getElementById('cf_submit').addEventListener('click', async () => {
     const menu = document.getElementById('navMenu');
 
     toggle.addEventListener('click', () => {
-        menu.classList.toggle('active');
+        const open = menu.classList.toggle('active');
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
     });
 
     // Zavření menu po kliknutí na odkaz
     menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             menu.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open navigation menu');
         });
+    });
+</script>
+
+<script>
+    // Close modal with Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const m = document.getElementById('modal');
+            if (m && m.classList.contains('visible')) m.classList.remove('visible');
+            const menu = document.getElementById('navMenu');
+            const tg = document.getElementById('menuToggle');
+            if (menu && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                tg.setAttribute('aria-expanded', 'false');
+            }
+        }
     });
 </script>
 
