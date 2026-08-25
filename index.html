@@ -182,6 +182,27 @@
             background: #f0ede8; color: var(--muted); padding: 3px 9px; border: 1px solid var(--line);
         }
 
+        /* ── PROJECTS ── */
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+        .proj-card {
+            background: var(--surface); border: 1px solid var(--line); padding: 28px 22px 26px;
+            text-decoration: none; color: var(--text);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            transition: border-color .2s, background .2s, transform .2s;
+            position: relative; overflow: hidden;
+        }
+        .proj-card::before {
+            content:""; position:absolute; left:0; right:0; top:0; height:3px;
+            background: var(--cz-red); transform: scaleX(0); transition: transform .25s;
+        }
+        .proj-card:hover { border-color: var(--cz-red); background:#faf5f5; transform: translateY(-2px); }
+        .proj-card:hover::before { transform: scaleX(1); }
+        .proj-icon { width: 68px; height: 68px; object-fit: contain; border-radius: 16px; margin-bottom: 16px; }
+        .proj-name { font-family:"Playfair Display", serif; font-size: 19px; font-weight: 600; margin-bottom: 10px; }
+        .proj-desc { font-size: 12.5px; line-height: 1.7; color: var(--muted); }
+        .proj-link { margin-top: 14px; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--cz-blue); }
+        @media (max-width: 640px) { .proj-grid { grid-template-columns: 1fr; } }
+
         /* ── CERTIFICATIONS ── */
         .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
         .cert-card {
@@ -543,7 +564,10 @@ section, header {
     <a href="#experience">Experience</a>
     <a href="#education">Education</a>
     <a href="#certifications">Certifications</a>
+    <a href="#projects">My Projects</a>
+    <!-- HIDDEN 2026-08: About Me (aquarium) section link — uncomment to re-enable
     <a href="#about-me">About Me</a>
+    -->
 </nav>
 
 <!-- CZECH ICON WATERMARK using uploaded icon set, unmodified -->
@@ -787,7 +811,44 @@ section, header {
         </div>
     </section>
     </section>
-<section id="about-me">
+<section id="projects">
+    <!-- MY PROJECTS -->
+    <section>
+        <h2 class="section-label">My Projects</h2>
+        <div class="proj-grid">
+            <a href="https://politicz.vercel.app/" class="proj-card" target="_blank" rel="noopener">
+                <img class="proj-icon" loading="lazy" decoding="async" src="assets/projects/politico.webp" alt="POLITICO icon">
+                <div class="proj-name">POLITICO</div>
+                <p class="proj-desc">Web browser game simulating a Czech political campaign. Written and designed with a variety of AI tools as a fun project. All content is in Czech and focused on Czech politics. The game includes robust logic for calculating preferences, votes and party dynamics.</p>
+                <span class="proj-link">Visit site ↗</span>
+            </a>
+            <a href="https://laskavkrajkach.cz/" class="proj-card" target="_blank" rel="noopener">
+                <img class="proj-icon" loading="lazy" decoding="async" src="assets/projects/laska-v-krajkach.webp" alt="Láska v Krajkách icon">
+                <div class="proj-name">Láska v Krajkách</div>
+                <p class="proj-desc">Webpage, including design, for a Prague based boutique with lingerie, swimwear and accessories.</p>
+                <span class="proj-link">Visit site ↗</span>
+            </a>
+            <a href="https://travelcraft.krystofbenka.cz/" class="proj-card" target="_blank" rel="noopener">
+                <img class="proj-icon" loading="lazy" decoding="async" src="assets/projects/travelcraft.webp" alt="TravelCraft icon">
+                <div class="proj-name">TravelCraft</div>
+                <p class="proj-desc">Web based travel planner to help with planning and organizing trips. Built to help me plan a several-week holiday — including booking references, budget tracking and other essentials you need to check when planning a trip.</p>
+                <span class="proj-link">Visit site ↗</span>
+            </a>
+            <a href="https://poharladistropnickeho.vercel.app/" class="proj-card" target="_blank" rel="noopener">
+                <img class="proj-icon" loading="lazy" decoding="async" src="assets/projects/fpl-squad-check.webp" alt="FPL Squad Check icon">
+                <div class="proj-name">FPL Squad Check</div>
+                <p class="proj-desc">Support hub for a Fantasy Premier League minileague for me and my friends. Includes an API connection to official FPL statistics and a squad check and analysis you cannot get on the official website.</p>
+                <span class="proj-link">Visit site ↗</span>
+            </a>
+        </div>
+    </section>
+    </section>
+<!-- ============================================================
+     ABOUT ME / AQUARIUM SECTION — TEMPORARILY HIDDEN (2026-08)
+     NOT DELETED. To re-enable: remove style="display:none" below
+     and set data-enabled="true" (this also re-activates the JS).
+     ============================================================ -->
+<section id="about-me" data-enabled="false" style="display:none;">
     <!-- SOFT SKILLS BUBBLES -->
     <section>
         <h2 class="section-label">About Me</h2>
@@ -858,6 +919,8 @@ section, header {
 </div>
 
 <script>
+/* Aquarium logic runs only when the About Me section is enabled (see section#about-me) */
+if (document.getElementById("about-me").dataset.enabled === "true") {
 const canvas = document.getElementById("bubbleCanvas");
 const ctx    = canvas.getContext("2d");
 const fishCanvas = document.getElementById("fishCanvas");
@@ -1189,6 +1252,7 @@ initBubbles();
 initFish();
 animate();
 animateFish();
+} /* end About Me guard */
 </script>
 
 <script>
