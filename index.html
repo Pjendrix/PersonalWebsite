@@ -183,13 +183,13 @@
         }
 
         /* ── PROJECTS ── */
-        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; align-items: stretch; }
         .proj-card {
             background: var(--surface); border: 1px solid var(--line); padding: 28px 22px 26px;
             text-decoration: none; color: var(--text);
             display: flex; flex-direction: column; align-items: center; text-align: center;
             transition: border-color .2s, background .2s, transform .2s;
-            position: relative; overflow: hidden;
+            position: relative; overflow: hidden; height: 100%;
         }
         .proj-card::before {
             content:""; position:absolute; left:0; right:0; top:0; height:3px;
@@ -199,8 +199,8 @@
         .proj-card:hover::before { transform: scaleX(1); }
         .proj-icon { width: 68px; height: 68px; object-fit: contain; border-radius: 16px; margin-bottom: 16px; }
         .proj-name { font-family:"Playfair Display", serif; font-size: 19px; font-weight: 600; margin-bottom: 10px; }
-        .proj-desc { font-size: 12.5px; line-height: 1.7; color: var(--muted); }
-        .proj-link { margin-top: 14px; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--cz-blue); }
+        .proj-desc { font-size: 12.5px; line-height: 1.7; color: var(--muted); flex: 1 1 auto; }
+        .proj-link { margin-top: auto; padding-top: 16px; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--cz-blue); }
         @media (max-width: 640px) { .proj-grid { grid-template-columns: 1fr; } }
 
         /* ── CERTIFICATIONS ── */
